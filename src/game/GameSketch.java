@@ -632,7 +632,11 @@ public class GameSketch extends PApplet {
                         if (mouseY > 280 && mouseY < 280 + 50) {
                             escena = 2;
                         }
-
+                    }
+                    if (mouseX > 500 && mouseX < 500 + 250) {
+                        if (mouseY > 380 && mouseY < 380 + 50) {
+                            escena = 3;
+                        }
                     }
                 }
                 if (sw == 2) {
