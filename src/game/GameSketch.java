@@ -7,6 +7,7 @@ import processing.core.PFont;
 import java.applet.AudioClip;
 
 public class GameSketch extends PApplet {
+
     Random random = new Random();
 
     @Override
@@ -16,16 +17,16 @@ public class GameSketch extends PApplet {
     }
 
     int x1 = 0;
-    int y1 = -720;
+    float y1 = -720;
     int x = 0;
-    int y = 0;
+    float y = 0;
     int sw = 1;
     int ytext = 28;
     int letras = 13;
     int life = 3;
     int timer;
-    int backvel = 20;
-    int vel = 10;
+    float backvel = 20;
+    float vel = 10;
     int ancho = 70;
     int largo = 150;
     int anchoanimals = 60;
@@ -34,20 +35,20 @@ public class GameSketch extends PApplet {
     int z = 0;
     int n = 0;
     int h;
-    int cont = 0;
+    int cont1 = 0;
     int yletter = -150;
-    int y3 = -1440;
-    int y4 = -720;
-    int y5 = -720;
-    int y6 = -1440;
-    int y7 = -2160;
-    int y8 = -2880;
+    float y3 = -1440;
+    float y4 = -720;
+    float y5 = -720;
+    float y6 = -1440;
+    float y7 = -2160;
+    float y8 = -2880;
     int timer2;
     int timer3 = 1;
     int escena = 1;
     int yletter2 = -260;
     int aux;
-
+    int cont;
     float xcarplayer = random(275, 920);
     float ycarplayer = 520;
     Float xcolision;
@@ -73,7 +74,7 @@ public class GameSketch extends PApplet {
     PImage letrero2;
     PImage corazon;
     PImage carplayer;
-
+    PImage welcome;
     PFont fuente;
 
     boolean key = true;
@@ -87,33 +88,38 @@ public class GameSketch extends PApplet {
     boolean lanzar;
     boolean contador = true;
     boolean juca = true;
-
-    AudioClip file2;
-    AudioClip file;
+    boolean velocimetro = true;
+    boolean sound8 = true;
+    AudioClip soundBomm;
+    AudioClip soundExtraLife;
     AudioClip SoundLobby;
     AudioClip StartRace;
     AudioClip GameOver;
     AudioClip Level2;
     AudioClip Level3;
+    AudioClip level1;
 
-    String[] rutas = { "Images/cangrejo.png", "Images/caracol.png", "Images/chiguiro.png", "Images/nti.png",
+    String[] rutasShuffle = { "Images/cangrejo.png", "Images/caracol.png", "Images/chiguiro.png", "Images/nti.png",
             "Images/gallo.png", "Images/gato_1.png", "Images/gato_2.png", "Images/oveja.png", "Images/panda.png",
             "Images/pato.png", "Images/perro_2.png", "Images/perro.png", "Images/pinguino.png", "Images/zorro_1.png",
             "Images/zorro_2.png" };
-    String[] rutasup = { "Images/car_up1.png", "Images/car_up2.png", "Images/car_up3.png", "Images/car_up4.png",
+    String[] rutas = new String[rutasShuffle.length];
+    String[] rutasupShuffle = { "Images/car_up1.png", "Images/car_up2.png", "Images/car_up3.png", "Images/car_up4.png",
             "Images/car_up5.png", "Images/car_up6.png" };
-    String[] rutasdown = { "Images/car_down1.png", "Images/car_down2.png", "Images/car_down3.png",
+    String[] rutasup = new String[rutasupShuffle.length];
+    String[] rutasdownShuffle = { "Images/car_down1.png", "Images/car_down2.png", "Images/car_down3.png",
             "Images/car_down4.png", "Images/car_down5.png", "Images/car_down6.png" };
+    String[] rutasdown = new String[rutasdownShuffle.length];
 
     PImage[] car_up = new PImage[6];
     PImage[] car_down = new PImage[6];
     PImage[] animals = new PImage[rutas.length];
-
+    boolean colision;
     boolean[] boleeanarray = { false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, };
-
-    float[] ordenadasderecha = { random(675, 920), random(675, 920), random(675, 920), random(675, 920),
-            random(675, 920), random(675, 920) };
+    int[] contadores = new int[15];
+    float[] ordenadasderecha = { random(600, 920), random(600, 920), random(600, 920), random(600, 920),
+            random(600, 920), random(600, 920) };
     float[] ordenadasizquierda = { random(275, 520), random(275, 520), random(275, 520), random(275, 520),
             random(275, 520), random(275, 520) };
     float[] ordenadasanimales = { random(275, 920), random(275, 920), random(275, 920), random(275, 920),
@@ -125,7 +131,10 @@ public class GameSketch extends PApplet {
 
     @Override
     public void setup() {
-        this.UpImge();
+        this.shuffle(rutasShuffle, rutas);
+        this.shuffle(rutasupShuffle, rutasup);
+        this.shuffle(rutasdownShuffle, rutasdown);
+        this.upImge();
         background(lobby);
         frameRate(30);
 
@@ -161,22 +170,21 @@ public class GameSketch extends PApplet {
                 fill(255, 255, 255);
                 textSize(120);
                 text(3 - timer2, 600, 360);
-
             }
             if (timer2 > 3) {
                 if (mover == true) {
 
-                    timer3 = timer2 - 4;
+                    timer3 = timer2 - 3;
                 }
                 contador = false;
-                this.juego();
+                this.game();
 
             }
             break;
         }
     }
 
-    public void UpImge() {
+    public void upImge() {
 
         carplayer = loadImage("Images/Carplayer.png");
         letrero = loadImage("Images/letreroSincelejo.png");
@@ -199,15 +207,16 @@ public class GameSketch extends PApplet {
         gameOver = loadImage("Images/GameOver.png");
         retry = loadImage("Images/Retry_buttom.png");
         exit = loadImage("Images/Exit_buttom.png");
-
-        file2 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export.wav"));
-        file = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export1.wav"));
+        welcome = loadImage("Images/welcome2.png");
+        soundBomm = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export.wav"));
+        soundExtraLife = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export1.wav"));
         lobby = loadImage("Images/lobby.png");
         StartRace = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/StartRace.wav"));
         SoundLobby = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/SoundLobby.wav"));
         GameOver = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/SoundGameOver.wav"));
         Level2 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/ulala.wav"));
         Level3 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/songquilla.wav"));
+        level1 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/soundlevel1.wav"));
         for (int i = 0; i < rutasup.length; i++) {
             car_up[i] = (loadImage(rutasup[i]));
             car_up[i].resize(ancho, largo);
@@ -245,8 +254,19 @@ public class GameSketch extends PApplet {
         this.mouseClicked();
     }
 
-    public void juego() {
-        timer2 = millis() / 1000;
+    public void game() {
+        if (timer3 % 20 == 0) {
+            if (velocimetro == true) {
+                vel = vel + 8;
+                backvel = backvel + 8;
+                System.out.println("vel " + vel);
+                System.out.println("backvel " + backvel);
+                velocimetro = false;
+            }
+        } else {
+            velocimetro = true;
+        }
+
         if (timer3 == 33) {
             sw = 2;
         }
@@ -254,6 +274,10 @@ public class GameSketch extends PApplet {
             sw = 3;
         }
         if (sw == 1) {
+            if (sound8 == true) {
+                level1.play();
+                sound8 = false;
+            }
             image(Background, x, y);
             image(Background, x, y1);
             y = y + backvel;
@@ -263,6 +287,10 @@ public class GameSketch extends PApplet {
                 y1 = -720;
             }
         } else if (sw == 2) {
+            level1.stop();
+            // tint(255, 126);
+            // image(welcome, 400, 0);
+            // tint(255, 126);
             if (sound6 == true) {
                 Level2.play();
                 sound6 = false;
@@ -273,7 +301,6 @@ public class GameSketch extends PApplet {
             }
             yletter2 += backvel;
             y = y + backvel;
-
             image(Background, x, y);
             image(Background2, x, y3);
             image(Background2, x, y4);
@@ -285,6 +312,7 @@ public class GameSketch extends PApplet {
             }
 
         } else if (sw == 3) {
+            Level2.stop();
             if (sound7 == true) {
                 Level3.play();
                 sound7 = false;
@@ -305,7 +333,7 @@ public class GameSketch extends PApplet {
             y6 += backvel;
             y7 += backvel;
             y8 += backvel;
-            if (y8 == 0) {
+            if (y7 > 720) {
                 y5 = -720;
                 y6 = -1440;
                 y7 = -2160;
@@ -318,12 +346,12 @@ public class GameSketch extends PApplet {
         image(letrero2, 110, yletter2);
         image(letrero, 110, yletter);
         yletter = yletter + 10;
-        this.GenereateAnimals();
+        this.genereateAnimals();
         image(animals[n], ordenadasanimales[n], abcisa2[n]);
         image(carplayer, xcarplayer, ycarplayer);
-        this.GenerateCars();
-        this.texfield();
-        this.colisiones();
+        this.generateCars();
+        this.texField();
+        this.crash();
         if (life == 0) {
             if (sound5 == true) {
                 GameOver.play();
@@ -341,11 +369,10 @@ public class GameSketch extends PApplet {
         }
     }
 
-    public void GenerateCars() {
+    public void generateCars() {
 
         image(car_down[0], ordenadasizquierda[0], abcisa[0]);
         abcisa[0] = abcisa[0] + vel;
-
         if (abcisa[0] > 144) {
             image(car_up[0], ordenadasderecha[0], abcisa1[0]);
             abcisa1[0] = abcisa1[0] + vel;
@@ -392,6 +419,10 @@ public class GameSketch extends PApplet {
             abcisa1[5] = abcisa1[5] + vel;
         }
         if (abcisa1[5] > 720) {
+            for (int i = 0; i < ordenadasderecha.length; i++) {
+                ordenadasderecha[i] = random(600, 920);
+                ordenadasizquierda[i] = random(275, 520);
+            }
             for (int i = 0; i <= 5; i++) {
                 abcisa1[i] = -160;
                 abcisa[i] = -160;
@@ -399,25 +430,31 @@ public class GameSketch extends PApplet {
         }
     }
 
-    public void GenereateAnimals() {
-        boleeanarray[n] = true;
-        if (boleeanarray[n]) {
+    public void genereateAnimals() {
+        if (n > 0) {
+            while (ordenadasanimales[n] > ordenadasanimales[n - 1] - 50
+                    && ordenadasanimales[n] < ordenadasanimales[n - 1] + 50) {
+                ordenadasanimales[n] = random(275, 920);
+            }
+        }
+        this.validacion();
+        if (contadores[n] == 12) {
             if (abcisa2[n] < 720) {
-                this.validacion();
                 abcisa2[n] = abcisa2[n] + vel;
             } else {
                 n = n + 1;
             }
-            if (n > 14) {
-                n = 0;
-                for (int i = 0; i <= 14; i++) {
-                    abcisa2[i] = -87;
-                }
+        }
+        if (n > 14) {
+            n = 0;
+            for (int i = 0; i <= 14; i++) {
+                abcisa2[i] = -87;
             }
         }
+
     }
 
-    public void colisiones() {
+    public void crash() {
         for (int h = 0; h <= 5; h++) {
             if (xcarplayer > ordenadasizquierda[h] + ancho) {
 
@@ -428,7 +465,7 @@ public class GameSketch extends PApplet {
             } else if (ycarplayer + largo < abcisa[h]) {
 
             } else {
-                file2.play();
+                soundBomm.play();
                 life = life - 1;
                 xcolision = ordenadasizquierda[h];
                 ycolision = abcisa[h];
@@ -449,7 +486,7 @@ public class GameSketch extends PApplet {
             } else if (ycarplayer + largo < abcisa1[h]) {
 
             } else {
-                file2.play();
+                soundBomm.play();
                 life = life - 1;
                 xcolision = ordenadasderecha[h];
                 ycolision = abcisa1[h];
@@ -464,7 +501,7 @@ public class GameSketch extends PApplet {
         }
     }
 
-    public void texfield() {
+    public void texField() {
         Float distancia = (vel * (float) timer3) / 100;
         Float score = (distancia + timer3) * 2;
         corazon.resize(24, 23);
@@ -494,7 +531,7 @@ public class GameSketch extends PApplet {
 
     }
 
-    public void fingame() {
+    public void endGame() {
         if (timer == 100 || life == 0) {
             xcarplayer = random(275, 920);
             ycarplayer = 520;
@@ -510,12 +547,12 @@ public class GameSketch extends PApplet {
             if (keyPressed == true) {
                 if (keyCode == RIGHT) {
                     if (xcarplayer < 920) {
-                        xcarplayer = xcarplayer + 30;
+                        xcarplayer = xcarplayer + 50;
                     }
                 }
                 if (keyCode == LEFT) {
                     if (xcarplayer > 275) {
-                        xcarplayer = xcarplayer - 30;
+                        xcarplayer = xcarplayer - 50;
                     }
                 }
                 if (keyCode == UP) {
@@ -534,7 +571,7 @@ public class GameSketch extends PApplet {
                             cont = cont + 1;
                             if (cont % 2 == 0) {
                                 life++;
-                                file.play();
+                                soundExtraLife.play();
                             }
                             xcolision = ordenadasanimales[h] - 100;
                             ycolision = abcisa2[h];
@@ -547,56 +584,90 @@ public class GameSketch extends PApplet {
                             abcisa2[h] = 720;
                         }
                     }
-
                 }
+
             }
         }
+
     }
 
     int xd;
 
     public void validacion() {
-        for (int i = 0; i < rutasdown.length; i++) {
-            for (int h = 0; h < ordenadasanimales.length; h++) {
+        for (int h = 0; h < ordenadasanimales.length; h++) {
+            cont1 = 0;
+            for (int i = 0; i < ordenadasderecha.length; i++) {
                 if (ordenadasanimales[h] + 30 > ordenadasizquierda[i] + ancho) {
-
+                    cont1 += 1;
                 } else if (ordenadasanimales[h] + anchoanimals + 30 < ordenadasizquierda[i]) {
-
+                    cont1 += 1;
                 } else if (abcisa2[h] + 30 > abcisa[i] + largo) {
-
+                    cont1 += 1;
                 } else if (abcisa2[h] + altoanimals + 30 < abcisa[i]) {
-
+                    cont1 += 1;
                 } else {
-
-                    abcisa2[h] = 0;
 
                 }
                 if (ordenadasanimales[h] + 30 > ordenadasderecha[i] + ancho) {
-
+                    cont1 += 1;
                 } else if (ordenadasanimales[h] + anchoanimals + 30 < ordenadasderecha[i]) {
-
+                    cont1 += 1;
                 } else if (abcisa2[h] + 30 > abcisa1[i] + largo) {
-
+                    cont1 += 1;
                 } else if (abcisa2[h] + altoanimals + 30 < abcisa1[i]) {
-
+                    cont1 += 1;
                 } else {
-                    abcisa2[h] = 0;
-                }
 
+                }
             }
+            contadores[h] = cont1;
         }
     }
 
     public void mouseClicked() {
         if (mousePressed == true) {
             if (mouseButton == LEFT) {
-                if (mouseX > 500 && mouseX < 500 + 250) {
-                    if (mouseY > 280 && mouseY < 280 + 50) {
-                        escena = 2;
-                    }
+                if (sw == 1) {
+                    if (mouseX > 500 && mouseX < 500 + 250) {
+                        if (mouseY > 280 && mouseY < 280 + 50) {
+                            escena = 2;
+                        }
 
+                    }
+                }
+                if (sw == 2) {
+                    if (mover == false) {
+                        if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
+
+                        }
+                        if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
+
+                        }
+                    }
                 }
             }
+
+        }
+    }
+
+    public void shuffle(String[] array, String[] salida) {
+        boolean hacer = false;
+        int d = 0;
+        Random random = new Random();
+        String[] rutasx = new String[array.length];
+
+        while (salida[array.length - 1] == null) {
+            int s = random.nextInt(array.length);
+            for (int j = 0; j < d; j++) {
+                if (array[s].equals(salida[j])) {
+                    hacer = true;
+                }
+            }
+            if (hacer == false) {
+                salida[d] = array[s];
+                d++;
+            }
+            hacer = false;
 
         }
     }
