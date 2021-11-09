@@ -668,7 +668,6 @@ public class GameSketch extends PApplet {
                 d++;
             }
             hacer = false;
-
         }
     }
 
