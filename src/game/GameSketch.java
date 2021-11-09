@@ -233,6 +233,7 @@ public class GameSketch extends PApplet {
     }
 
     public void lobby() {
+        image(lobby,x,y);
 
         textFont(fuente);
         fill(0, 0, 0);
@@ -642,7 +643,7 @@ public class GameSketch extends PApplet {
                 if (sw == 2) {
                     if (mover == false) {
                         if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-
+                            escena = 1;
                         }
                         if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
 
