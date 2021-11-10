@@ -476,7 +476,7 @@ public class GameSketch extends PApplet {
         //     text("  WELCOME \n    TO    \n CARTAGENA", xcarta, ycarta);
         //     // image(welcome, xcarta, ycarta);
         // }
-        if (timer3>98){
+        if (timer3>98.5){
             ylinemeta+=backvel;
             image(line_meta, 275, ylinemeta);
 
