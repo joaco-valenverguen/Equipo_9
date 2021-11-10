@@ -48,6 +48,7 @@ public class GameSketch extends PApplet {
     int ylinemeta = -83;
     int xmarco = -400;
     int ymarco = -400;
+    int auxGarage = 0;
     float y = 0;
     float backvel = 20;
     float vel = 10;
@@ -178,7 +179,7 @@ public class GameSketch extends PApplet {
             this.lobby();
             break;
         case 2:
-            carplayers[m].resize(ancho, largo);
+            carplayers[auxGarage].resize(ancho, largo);
             SoundLobby.stop();
             if (sound3 == true) {
                 StartRace.play();
@@ -191,7 +192,7 @@ public class GameSketch extends PApplet {
             timer2 = timer - aux - timeacu;
             if (contador) {
                 image(Background, x, y);
-                image(carplayers[m], xcarplayer, ycarplayer);
+                image(carplayers[auxGarage], xcarplayer, ycarplayer);
                 filter(BLUR, 5);
                 textFont(fuente);
                 fill(255, 255, 255);
@@ -416,7 +417,8 @@ public class GameSketch extends PApplet {
                 }
                 if (mouseX > 800 && mouseX < 1060) {
                     if (mouseY > 550 && mouseY < 610) {
-                        confirmar = true;
+                        auxGarage = m;
+                        // confirmar = true;
                         escena = 1;
 
                     }
@@ -548,7 +550,7 @@ public class GameSketch extends PApplet {
         this.genereateAnimals();
         image(animals[n], ordenadasanimales[n], abcisa2[n]);
 
-        image(carplayers[m], xcarplayer, ycarplayer);
+        image(carplayers[auxGarage], xcarplayer, ycarplayer);
 
         this.generateCars();
         this.texField();
