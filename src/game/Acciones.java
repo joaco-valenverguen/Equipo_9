@@ -2,6 +2,7 @@ package game;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import java.util.Random;
 
 public class Acciones {
     PApplet sketch;
@@ -21,23 +22,9 @@ public class Acciones {
     PImage[] animals;
     int ancho;
     int largo;
-
-    Acciones(PApplet sketch, PImage[] car_down, PImage[] car_up, float[] ordenadasizquierda, float[] ordenadasderecha,
-            float[] abcisa, float[] abcisa1, int vel,String[] rutasup, String[] rutasdown, String[] rutas, PImage[] animals, int ancho, int largo) {
+   
+    Acciones(PApplet sketch) {
         this.sketch = sketch;
-        this.car_down=car_down;
-        this.car_up = car_up;
-        this.ordenadasizquierda = ordenadasizquierda;
-        this.ordenadasderecha = ordenadasderecha;
-        this.abcisa = abcisa;
-        this.abcisa1=abcisa1;
-        this.vel = vel;
-        this.rutasup = rutasup;
-        this.rutasdown = rutasdown;
-        this.rutas = rutas;
-        this.animals = animals;
-        this.ancho = ancho;
-        this.largo = largo;
     }
 
     public void GenerateCars() {
@@ -99,6 +86,49 @@ public class Acciones {
         }
 
     }
+    public void shuffle(String[] array, String[] salida) {
+        boolean hacer = false;
+        int d = 0;
+        Random random = new Random();
+        String[] rutasx = new String[array.length];
+
+        while (salida[array.length - 1] == null) {
+            int s = random.nextInt(array.length);
+            for (int j = 0; j < d; j++) {
+                if (array[s].equals(salida[j])) {
+                    hacer = true;
+                }
+            }
+            if (hacer == false) {
+                salida[d] = array[s];
+                d++;
+            }
+            hacer = false;
+        }
+    }
+
+//    public void lobby() {
+
+//         sketch.background(sketch.lobby);
+//         sketch.fill(196, 196, 196, 300);
+//         sketch.rect(500, 280, 250, 50, 0, 24, 0, 72);
+//         sketch.rect(500, 380, 250, 50, 0, 24, 0, 72);
+//         sketch.rect(500, 480, 250, 50, 0, 24, 0, 72);
+//         sketch.rect(500, 580, 250, 50, 0, 24, 0, 72);
+//         sketch.rect(940, 650, 200, 50, 0, 24, 0, 72);
+//         sketch.textFont(sketch.fuente);
+//         sketch.fill(0, 0, 0);
+//         sketch.textSize(48);
+//         sketch.text("LA COSTA TOUR", 300, 120);
+//         sketch.textSize(24);
+//         sketch.noStroke();
+//         sketch.text("CARRERA", 540, 320);
+//         sketch.text("FREE RACE", 515, 420);
+//         sketch.text("GARAGE", 550, 520);
+//         sketch.text("OPCIONES", 530, 620);
+//         sketch.text("CREDITOS", 945, 690);
+//         sketch.mouseClicked();
+//     }
 
     public void UpImge() {
         this.carplayer = this.sketch.loadImage("images/Carplayer.png");
