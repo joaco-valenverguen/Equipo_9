@@ -16,9 +16,7 @@ public class GameSketch extends PApplet {
 
     }
 
-    int timeacu = 0;
-    int xcarta = 400;
-    int ycarta = 100;
+    int timeacu = 0;int xcarta = 400;int ycarta = 100;
     int x1 = 0;
     int x = 0;
     int sw = 1;
@@ -49,6 +47,7 @@ public class GameSketch extends PApplet {
     int xmarco = -400;
     int ymarco = -400;
     int auxGarage = 0;
+    
     float y = 0;
     float backvel = 20;
     float vel = 10;
@@ -95,6 +94,7 @@ public class GameSketch extends PApplet {
     PImage creditos1;
     PImage creditos2;
     PImage instrucciones1;
+
     boolean key = true;
     boolean key2 = true;
     boolean key3 = true;
@@ -184,17 +184,10 @@ public class GameSketch extends PApplet {
             this.lobby();
             break;
         case 2:
-            image(instrucciones1, 0, 0);
-            if (mousePressed == true) {
-                if (mouseButton == LEFT) {
-                    if (mouseX > 1098 && mouseX < 1223) {
-                        if (mouseY > 639 && mouseY < 690) {
-                            jugar = true;
-                        }
-                    }
-                }
-
+            if(!jugar){
+                image(instrucciones1, 0, 0);
             }
+            this.mouseClicked();
             if (jugar) {
                 carplayers[auxGarage].resize(ancho, largo);
                 SoundLobby.stop();
@@ -233,15 +226,12 @@ public class GameSketch extends PApplet {
         case 4:
             // image(creditos1, 0, 0);
             // if (mousePressed == true){
-            //     if (mouseButton == LEFT){
-            //         if (mouseX > && mouseX < ){
-            //             if (mouseY > && mouseY < ){
-                            
-            //         }   
-            //     }
-            
-        
-            
+            // if (mouseButton == LEFT){
+            // if (mouseX > && mouseX < ){
+            // if (mouseY > && mouseY < ){
+
+            // }
+            // }
             break;
         }
     }
@@ -379,110 +369,11 @@ public class GameSketch extends PApplet {
         fill(0, 229, 159);
         square(1000, 450, 60);
 
-        if (mousePressed == true) {
-            if (mouseButton == LEFT) {
-                if (mouseX > 800 && mouseX < 860) {
-                    if (mouseY > 250 && mouseY < 310) {
-                        m = 0;
-                        xmarco = 793;
-                        ymarco = 243;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 900 && mouseX < 960) {
-                    if (mouseY > 250 && mouseY < 310) {
-                        m = 1;
-                        xmarco = 893;
-                        ymarco = 243;
-                        sound9 = true;
-
-                    }
-
-                }
-                if (mouseX > 1000 && mouseX < 1060) {
-                    if (mouseY > 250 && mouseY < 310) {
-                        m = 2;
-                        xmarco = 993;
-                        ymarco = 243;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 800 && mouseX < 860) {
-                    if (mouseY > 350 && mouseY < 410) {
-                        m = 3;
-                        xmarco = 793;
-                        ymarco = 343;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 900 && mouseX < 960) {
-                    if (mouseY > 350 && mouseY < 410) {
-                        m = 4;
-                        xmarco = 893;
-                        ymarco = 343;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 1000 && mouseX < 1060) {
-                    if (mouseY > 350 && mouseY < 410) {
-                        m = 5;
-                        xmarco = 993;
-                        ymarco = 343;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 800 && mouseX < 860) {
-                    if (mouseY > 450 && mouseY < 510) {
-                        m = 6;
-                        xmarco = 793;
-                        ymarco = 443;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 900 && mouseX < 960) {
-                    if (mouseY > 450 && mouseY < 510) {
-                        m = 7;
-                        xmarco = 893;
-                        ymarco = 443;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 1000 && mouseX < 1060) {
-                    if (mouseY > 450 && mouseY < 510) {
-                        m = 8;
-                        xmarco = 993;
-                        ymarco = 443;
-                        sound9 = true;
-
-                    }
-                }
-                if (mouseX > 57 && mouseX < 186) {
-                    if (mouseY > 73 && mouseY < 102) {
-                        escena = 1;
-                    }
-                }
-                if (mouseX > 800 && mouseX < 1060) {
-                    if (mouseY > 550 && mouseY < 610) {
-                        auxGarage = m;
-                        // confirmar = true;
-                        escena = 1;
-                        spray.stop();
-
-                    }
-                }
-            }
-        }
         if (sound9) {
             spray.play();
             sound9 = false;
         }
+        this.mouseClicked();
         carplayers[m].resize(160, 281);
         image(carplayers[m], 202, 270);
         image(marco, xmarco, ymarco);
@@ -601,9 +492,7 @@ public class GameSketch extends PApplet {
                 ylinemeta += backvel;
                 image(line_meta, 275, ylinemeta);
             }
-
         }
-
         this.genereateAnimals();
         image(animals[n], ordenadasanimales[n], abcisa2[n]);
         image(carplayers[auxGarage], xcarplayer, ycarplayer);
@@ -735,13 +624,13 @@ public class GameSketch extends PApplet {
 
     public void crash() {
         for (int h = 0; h <= 5; h++) {
-            if (xcarplayer > ordenadasizquierda[h] + ancho) {
+            if (xcarplayer > ordenadasizquierda[h] + ancho-10) {
 
-            } else if (xcarplayer + ancho < ordenadasizquierda[h]) {
+            } else if (xcarplayer + ancho < ordenadasizquierda[h]+10) {
 
-            } else if (ycarplayer > abcisa[h] + largo) {
+            } else if (ycarplayer > abcisa[h] + largo-10) {
 
-            } else if (ycarplayer + largo < abcisa[h]) {
+            } else if (ycarplayer + largo < abcisa[h]+10) {
 
             } else {
                 soundBomm.play();
@@ -756,13 +645,13 @@ public class GameSketch extends PApplet {
                 abcisa[h] = 720;
                 xcarplayer = 600;
             }
-            if (xcarplayer > ordenadasderecha[h] + ancho) {
+            if (xcarplayer > ordenadasderecha[h] + ancho-10) {
 
-            } else if (xcarplayer + ancho < ordenadasderecha[h]) {
+            } else if (xcarplayer + ancho < ordenadasderecha[h]+10) {
 
-            } else if (ycarplayer > abcisa1[h] + largo) {
+            } else if (ycarplayer > abcisa1[h] + largo-10) {
 
-            } else if (ycarplayer + largo < abcisa1[h]) {
+            } else if (ycarplayer + largo < abcisa1[h]+10) {
 
             } else {
                 soundBomm.play();
@@ -908,7 +797,7 @@ public class GameSketch extends PApplet {
     public void mouseClicked() {
         if (mousePressed == true) {
             if (mouseButton == LEFT) {
-                if (sw == 1) {
+                if (escena == 1) {
                     if (mouseX > 500 && mouseX < 500 + 250) {
                         if (mouseY > 280 && mouseY < 280 + 50) {
                             escena = 2;
@@ -927,7 +816,12 @@ public class GameSketch extends PApplet {
                     }
 
                 }
-                if (sw == 2) {
+                if (escena == 2) {
+                    if (mouseX > 1098 && mouseX < 1223) {
+                        if (mouseY > 639 && mouseY < 690) {
+                            jugar = true;
+                        }
+                    }
                     if (mover == false) {
                         if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
                             if (key6 == true) {
@@ -940,6 +834,104 @@ public class GameSketch extends PApplet {
                                 this.retrying();
                                 key7 = false;
                             }
+
+                        }
+                    }
+                }
+                if (escena == 3) {
+                    if (mouseX > 800 && mouseX < 860) {
+                        if (mouseY > 250 && mouseY < 310) {
+                            m = 0;
+                            xmarco = 793;
+                            ymarco = 243;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 900 && mouseX < 960) {
+                        if (mouseY > 250 && mouseY < 310) {
+                            m = 1;
+                            xmarco = 893;
+                            ymarco = 243;
+                            sound9 = true;
+
+                        }
+
+                    }
+                    if (mouseX > 1000 && mouseX < 1060) {
+                        if (mouseY > 250 && mouseY < 310) {
+                            m = 2;
+                            xmarco = 993;
+                            ymarco = 243;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 800 && mouseX < 860) {
+                        if (mouseY > 350 && mouseY < 410) {
+                            m = 3;
+                            xmarco = 793;
+                            ymarco = 343;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 900 && mouseX < 960) {
+                        if (mouseY > 350 && mouseY < 410) {
+                            m = 4;
+                            xmarco = 893;
+                            ymarco = 343;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 1000 && mouseX < 1060) {
+                        if (mouseY > 350 && mouseY < 410) {
+                            m = 5;
+                            xmarco = 993;
+                            ymarco = 343;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 800 && mouseX < 860) {
+                        if (mouseY > 450 && mouseY < 510) {
+                            m = 6;
+                            xmarco = 793;
+                            ymarco = 443;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 900 && mouseX < 960) {
+                        if (mouseY > 450 && mouseY < 510) {
+                            m = 7;
+                            xmarco = 893;
+                            ymarco = 443;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 1000 && mouseX < 1060) {
+                        if (mouseY > 450 && mouseY < 510) {
+                            m = 8;
+                            xmarco = 993;
+                            ymarco = 443;
+                            sound9 = true;
+
+                        }
+                    }
+                    if (mouseX > 57 && mouseX < 186) {
+                        if (mouseY > 73 && mouseY < 102) {
+                            escena = 1;
+                        }
+                    }
+                    if (mouseX > 800 && mouseX < 1060) {
+                        if (mouseY > 550 && mouseY < 610) {
+                            auxGarage = m;
+                            // confirmar = true;
+                            escena = 1;
+                            spray.stop();
 
                         }
                     }
