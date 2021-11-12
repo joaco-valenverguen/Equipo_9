@@ -16,31 +16,118 @@ public class GameSketch extends PApplet {
 
     }
 
-    int ymarco3 = 503; int xmarco3 = 565; int ymarco2 = 281; int xmarco2 = 465; int timeacu = 0;
-    int x = 0; int sw = 1; int ytext = 28; int letras = 13; int life = 3; int timer; int ancho = 70;
-    int largo = 150; int anchoanimals = 60; int altoanimals = 87; int i ; int n = 0; int h; 
-    int cont1 = 0; int yletter = -200; int timer2; int timer3 = 1; int escena = 1; int yletter2 = -200;
-    int aux; int cont; int m; int velsings = 7; int yletter3 = -200; int ylinemeta = -83; int xmarco = -400;
-    int ymarco = -400; int auxGarage = 0; int subescena = 1;
+    int ymarco3 = 503;
+    int xmarco3 = 565;
+    int ymarco2 = 281;
+    int xmarco2 = 465;
+    int timeacu = 0;
+    int x = 0;
+    int sw = 1;
+    int ytext = 28;
+    int letras = 13;
+    int life = 3;
+    int timer;
+    int ancho = 70;
+    int largo = 150;
+    int anchoanimals = 60;
+    int altoanimals = 87;
+    int i;
+    int n = 0;
+    int h;
+    int cont1 = 0;
+    int yletter = -200;
+    int timer2;
+    int timer3 = 1;
+    int escena = 1;
+    int yletter2 = -200;
+    int aux;
+    int cont;
+    int m;
+    int velsings = 7;
+    int yletter3 = -200;
+    int ylinemeta = -83;
+    int xmarco = -400;
+    int ymarco = -400;
+    int auxGarage = 0;
+    int subescena = 1;
 
-    float y = 0; float backvel = 20; float vel = 10; float dificultad = 5; float saveDificultad = 5;
-    float y1 = -720; float y3 = -1440; float y4 = -720; float y5 = -720; float y6 = -1440; float y7 = -2160;
-    float y8 = -2880; float xcarplayer = 600; float ycarplayer = 520; Float xcolision; Float ycolision;
+    float y = 0;
+    float backvel = 20;
+    float vel = 10;
+    float dificultad = 5;
+    float saveDificultad = 5;
+    float y1 = -720;
+    float y3 = -1440;
+    float y4 = -720;
+    float y5 = -720;
+    float y6 = -1440;
+    float y7 = -2160;
+    float y8 = -2880;
+    float xcarplayer = 600;
+    float ycarplayer = 520;
+    Float xcolision;
+    Float ycolision;
     float ybackground2 = -710;
-    
-    PImage Background; PImage Background1; PImage Background2; PImage Background3a; PImage Background3b;
-    PImage Background3c; PImage Background3d; PImage gameOver; PImage boom; PImage lobby; PImage check;
-    PImage retry; PImage exit; PImage letrero; PImage escenario2; PImage red; PImage letrero2; PImage corazon;
-    PImage garage; PImage Background2b; PFont fuente; PImage letrero3; PImage line_meta; PImage youwin; 
-    PImage marco; PImage creditos1; PImage creditos2; PImage instrucciones1; PImage options; PImage marco2;
+
+    PImage Background;
+    PImage Background1;
+    PImage Background2;
+    PImage Background3a;
+    PImage Background3b;
+    PImage Background3c;
+    PImage Background3d;
+    PImage gameOver;
+    PImage boom;
+    PImage lobby;
+    PImage check;
+    PImage retry;
+    PImage exit;
+    PImage letrero;
+    PImage escenario2;
+    PImage red;
+    PImage letrero2;
+    PImage corazon;
+    PImage garage;
+    PImage Background2b;
+    PFont fuente;
+    PImage letrero3;
+    PImage line_meta;
+    PImage youwin;
+    PImage marco;
+    PImage creditos1;
+    PImage creditos2;
+    PImage instrucciones1;
+    PImage options;
+    PImage marco2;
     PImage marco3;
-    
-    boolean key1 = true; boolean key2 = true; boolean key3 = true; boolean key4 = true; boolean key5 = true;
-    boolean key6 = true; boolean key7 = true; boolean mover = true; boolean sound3 = true; boolean sound4 = true;
-    boolean sound5 = true; boolean sound6 = true; boolean sound7 = true; boolean lanzar; boolean contador = true;
-    boolean velocimetro = true; boolean sound8 = true; boolean key8 = true; boolean confirmar = false;
-    boolean sound9 = false; boolean jugar = false; boolean changeSubescena; boolean swOptions = false;
-    boolean playSounds; boolean SaveSounds =true; boolean key9=true;
+
+    boolean key1 = true;
+    boolean key2 = true;
+    boolean key3 = true;
+    boolean key4 = true;
+    boolean key5 = true;
+    boolean key6 = true;
+    boolean key7 = true;
+    boolean mover = true;
+    boolean sound3 = true;
+    boolean sound4 = true;
+    boolean sound5 = true;
+    boolean sound6 = true;
+    boolean sound7 = true;
+    boolean sound10 = true;
+    boolean lanzar;
+    boolean contador = true;
+    boolean velocimetro = true;
+    boolean sound8 = true;
+    boolean key8 = true;
+    boolean confirmar = false;
+    boolean sound9 = false;
+    boolean jugar = false;
+    boolean changeSubescena;
+    boolean swOptions = false;
+    boolean playSounds;
+    boolean SaveSounds = true;
+    boolean key9 = true;
 
     AudioClip soundBomm;
     AudioClip soundExtraLife;
@@ -51,6 +138,7 @@ public class GameSketch extends PApplet {
     AudioClip Level3;
     AudioClip level1;
     AudioClip spray;
+    AudioClip soundCredits;
 
     String[] rutas_carplayers = { "Images/carplayer_orange.png", "Images/carplayer_blue.png",
             "Images/carplayer_yellow.png", "Images/carplayer_red.png", "Images/carplayer_purple.png",
@@ -71,7 +159,6 @@ public class GameSketch extends PApplet {
     PImage[] car_down = new PImage[6];
     PImage[] animals = new PImage[rutas.length];
     PImage[] carplayers = new PImage[9];
-
 
     boolean colision;
     boolean[] boleeanarray = { false, false, false, false, false, false, false, false, false, false, false, false,
@@ -121,7 +208,7 @@ public class GameSketch extends PApplet {
                     aux = timer;
                     key4 = false;
                 }
-                timer2 = timer - aux ;
+                timer2 = timer - aux;
                 if (contador) {
                     image(Background, x, y);
                     image(carplayers[auxGarage], xcarplayer, ycarplayer);
@@ -132,7 +219,7 @@ public class GameSketch extends PApplet {
                     text(3 - timer2, 600, 360);
                 }
                 if (timer2 > 3) {
-                    key7 = true;
+                    // key7 = true;
                     if (mover == true) {
                         timer3 = timer2 - 3;
                     }
@@ -196,6 +283,7 @@ public class GameSketch extends PApplet {
         Level3 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/songquilla.wav"));
         level1 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/soundlevel1.wav"));
         spray = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/Spray.wav"));
+        soundCredits = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/oninonino.wav"));
         for (int i = 0; i < rutasup.length; i++) {
             car_up[i] = (loadImage(rutasup[i]));
             car_up[i].resize(ancho, largo);
@@ -221,9 +309,10 @@ public class GameSketch extends PApplet {
                 SoundLobby.play();
                 sound4 = false;
             }
-        }else{
+        } else {
             SoundLobby.stop();
         }
+
         background(lobby);
         fill(196, 196, 196, 300);
         rect(500, 280, 250, 50, 0, 24, 0, 72);
@@ -292,14 +381,11 @@ public class GameSketch extends PApplet {
 
         fill(0, 229, 159);
         square(1000, 450, 60);
-        if (SaveSounds) {
-            if (sound9) {
-                spray.play();
-                sound9 = false;
-            }
-        }else
-        
-        
+
+        if (sound9) {
+            spray.play();
+            sound9 = false;
+        }
 
         this.mouseClicked();
         carplayers[m].resize(160, 281);
@@ -309,9 +395,17 @@ public class GameSketch extends PApplet {
 
     public void options() {
         background(options);
-        this.mouseClicked();
+        {
+            fill(255, 255, 255);
+            rect(103, 73, 72, 29);
+        }
+        {
+            fill(255, 255, 255);
+            triangle(103, 63, 103, 112, 57, 88);
+        }
         image(marco2, xmarco2, ymarco2);
         image(marco3, xmarco3, ymarco3);
+        this.mouseClicked();
     }
 
     public void game() {
@@ -321,8 +415,8 @@ public class GameSketch extends PApplet {
         key3 = true;
         if (timer3 % 20 == 0) {
             if (velocimetro == true) {
-                vel = vel + saveDificultad;
-                backvel = backvel + saveDificultad;
+                vel = vel + 5;
+                backvel = backvel + 5;
                 velocimetro = false;
             }
         } else {
@@ -437,8 +531,8 @@ public class GameSketch extends PApplet {
         this.texField();
         this.crash();
         if (life == 0) {
-             
-            if(key3 == true) {
+
+            if (key3 == true) {
                 if (sound5 == true) {
                     GameOver.play();
                     sound5 = false;
@@ -451,10 +545,13 @@ public class GameSketch extends PApplet {
                 image(gameOver, 350, 0);
                 image(exit, 540, 330);
                 image(retry, 660, 330);
+                level1.stop();
+                Level2.stop();
+                Level3.stop();
                 this.mouseClicked();
             }
         }
-        
+
         if (timer3 > 98) {
             ylinemeta += backvel;
             image(line_meta, 275, ylinemeta);
@@ -468,7 +565,7 @@ public class GameSketch extends PApplet {
     }
 
     public void generateCars() {
-        
+
         image(car_down[0], ordenadasizquierda[0], abcisa[0]);
         abcisa[0] = abcisa[0] + vel;
 
@@ -782,10 +879,9 @@ public class GameSketch extends PApplet {
                             }
                         }
                         if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-                            if (key7 == true) {
-                                this.retrying();
-                                key7 = false;
-                            }
+
+                            this.retrying();
+                            key7 = false;
 
                         }
                     }
@@ -888,13 +984,18 @@ public class GameSketch extends PApplet {
                         }
                     }
                 }
-                if(escena==5){
+                if (escena == 5) {
+                    if (mouseX > 57 && mouseX < 186) {
+                        if (mouseY > 73 && mouseY < 102) {
+                            escena = 1;
+                        }
+                    }
                     if (mouseX > 467 && mouseX < 612) {
                         if (mouseY > 286 && mouseY < 341) {
                             xmarco2 = 465;
                             ymarco2 = 281;
                             playSounds = true;
-    
+
                         }
                     }
                     if (mouseX > 657 && mouseX < 802) {
@@ -922,27 +1023,53 @@ public class GameSketch extends PApplet {
                         if (mouseY > 508 && mouseY < 563) {
                             xmarco3 = 773;
                             ymarco3 = 503;
-                            vel=15;
-                            backvel=25;
+                            vel = 15;
+                            backvel = 25;
                             dificultad = 8;
                         }
                     }
                     if (mouseX > 1107 && mouseX < 1252) {
                         if (mouseY > 639 && mouseY < 694) {
                             escena = 1;
-                            delay(300);
                             saveDificultad = dificultad;
                             SaveSounds = playSounds;
-    
+                            delay(300);
                         }
                     }
                 }
-
+                if (escena == 6) {
+                    if (subescena == 1) {
+                        if (mouseX > 1136 && mouseX < 1189) {
+                            if (mouseY > 600 && mouseY < 663) {
+                                subescena = 2;
+                                changeSubescena = false;
+                            }
+                        }
+                    }
+                    if (subescena == 2) {
+                        if (mouseX > 91 && mouseX < 144) {
+                            if (mouseY > 602 && mouseY < 666) {
+                                subescena = 1;
+                            }
+                        }
+                        if (mouseX > 1092 && mouseX < 1237) {
+                            if (mouseY > 34 && mouseY < 89) {
+                                escena = 1;
+                                soundCredits.stop();
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
     public void credits() {
+        SoundLobby.stop();
+        if(sound10){
+            soundCredits.loop();
+            sound10=false;
+        }
         switch (subescena) {
         case 1:
             image(creditos1, 0, 0);
@@ -952,53 +1079,26 @@ public class GameSketch extends PApplet {
             fill(5, 5, 5);
             rect(1078, 539, 66, 153);
 
-            if (mousePressed == true) {
-                if (mouseButton == LEFT) {
-                    if (mouseX > 1136 && mouseX < 1189) {
-                        if (mouseY > 600 && mouseY < 663) {
-                            subescena = 2;
-                            changeSubescena = false;
-                        }
-                    }
-                }
-            }
             break;
         case 2:
             image(creditos2, 0, 0);
             fill(255, 255, 255);
             triangle(91, 634, 144, 602, 144, 666);
-            if (mousePressed == true) {
-                if (mouseButton == LEFT) {
-                    if (mouseX > 91 && mouseX < 144) {
-                        if (mouseY > 602 && mouseY < 666) {
-                            subescena = 1;
-                        }
-                    }
-                }
-            }
-
-            if (mousePressed == true) {
-                if (mouseButton == LEFT) {
-                    if (mouseX > 1092 && mouseX < 1237) {
-                        if (mouseY > 34 && mouseY < 89) {
-                            escena = 1;
-                        }
-                    }
-                }
-            }
-
+            
             break;
         }
+        this.mouseClicked();
     }
 
     public void exiting() {
         escena = 1;
         sw = 1;
     }
+
     public void retrying() {
-        y = 0;
         backvel = 20;
         vel = 10;
+        y = 0;
         y1 = -720;
         y3 = -1440;
         y4 = -720;
@@ -1009,24 +1109,26 @@ public class GameSketch extends PApplet {
         xcarplayer = 600;
         ycarplayer = 520;
         ybackground2 = -710;
-        key1 = true;
-        key2 = true;
-        
-        key4 = true;
-        life=3;
+        life = 3;
         mover = true;
         sound3 = true;
         sound4 = true;
         sound5 = true;
         sound6 = true;
         sound7 = true;
-        contador =true;
-        escena = 2;
+        sound8 = true;
         if (key5 == true) {
             acciones.shuffle(rutasShuffle, rutas);
             acciones.shuffle(rutasupShuffle, rutasup);
             acciones.shuffle(rutasdownShuffle, rutasdown);
         }
+        contador = true;
+        key4 = true;
+        key1 = true;
+        key2 = true;
+        jugar = false;
+        sw = 1;
+        escena=2;
         for (int i = 0; i < ordenadasderecha.length; i++) {
             ordenadasderecha[i] = random(600, 920);
             ordenadasizquierda[i] = random(275, 520);
@@ -1035,14 +1137,10 @@ public class GameSketch extends PApplet {
             abcisa1[i] = -160;
             abcisa[i] = -160;
         }
-    
-        for (int i = 0; i < ordenadasanimales.length; i++) {
-            ordenadasanimales[i] = random(275, 520);
-        }
-        for (int i = 0; i < ordenadasanimales.length; i++) {
+        for (int i = 0; i < abcisa2.length; i++) {
             abcisa2[i] = -87;
+            ordenadasanimales[i] = random(275,920);
         }
-        jugar=false;
     }
 
     public void run() {
