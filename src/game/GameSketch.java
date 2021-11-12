@@ -150,13 +150,15 @@ public class GameSketch extends PApplet {
             "Images/zorro_2.png" };
     String[] rutas = new String[rutasShuffle.length];
     String[] rutasupShuffle = { "Images/car_up1.png", "Images/car_up2.png", "Images/car_up3.png", "Images/car_up4.png",
-            "Images/car_up5.png", "Images/car_up6.png" };
+            "Images/car_up5.png", "Images/car_up6.png", "Images/car_up7.png", "Images/car_up8.png",
+            "Images/car_up9.png", "Images/car_up10.png", "Images/car_up11.png" };
     String[] rutasup = new String[rutasupShuffle.length];
     String[] rutasdownShuffle = { "Images/car_down1.png", "Images/car_down2.png", "Images/car_down3.png",
-            "Images/car_down4.png", "Images/car_down5.png", "Images/car_down6.png" };
+            "Images/car_down4.png", "Images/car_down5.png", "Images/car_down6.png", "Images/car_down7.png",
+            "Images/car_down8.png", "Images/car_down9.png", "Images/car_down10.png", "Images/car_down11.png" };
     String[] rutasdown = new String[rutasdownShuffle.length];
-    PImage[] car_up = new PImage[6];
-    PImage[] car_down = new PImage[6];
+    PImage[] car_up = new PImage[rutasup.length];
+    PImage[] car_down = new PImage[rutasdown.length];
     PImage[] animals = new PImage[rutas.length];
     PImage[] carplayers = new PImage[9];
 
@@ -165,14 +167,16 @@ public class GameSketch extends PApplet {
             false, false, false, };
     int[] contadores = new int[15];
     float[] ordenadasderecha = { random(600, 920), random(600, 920), random(600, 920), random(600, 920),
-            random(600, 920), random(600, 920) };
+            random(600, 920), random(600, 920), random(600, 920), random(600, 920), random(600, 920), random(600, 920),
+            random(600, 920) };
     float[] ordenadasizquierda = { random(275, 520), random(275, 520), random(275, 520), random(275, 520),
-            random(275, 520), random(275, 520) };
+            random(275, 520), random(275, 520), random(275, 520), random(275, 520), random(275, 520), random(275, 520),
+            random(275, 520) };
     float[] ordenadasanimales = { random(275, 920), random(275, 920), random(275, 920), random(275, 920),
             random(275, 920), random(275, 920), random(275, 920), random(275, 920), random(275, 920), random(275, 920),
             random(275, 920), random(275, 920), random(275, 920), random(275, 920), random(275, 920) };
-    float[] abcisa = { -160, -160, -160, -160, -160, -160 };
-    float[] abcisa1 = { -160, -160, -160, -160, -160, -160 };
+    float[] abcisa = { -160, -160, -160, -160, -160, -160, -160, -160, -160, -160, -160 };
+    float[] abcisa1 = { -160, -160, -160, -160, -160, -160, -160, -160, -160, -160, -160 };
     float[] abcisa2 = { -87, -87, -87, -87, -87, -87, -87, -87, -87, -87, -87, -87, -87, -87, -87 };
 
     @Override
@@ -187,6 +191,7 @@ public class GameSketch extends PApplet {
 
     @Override
     public void draw() {
+
         timer = millis() / 1000;
         switch (escena) {
         case 1:
@@ -224,6 +229,7 @@ public class GameSketch extends PApplet {
                         timer3 = timer2 - 3;
                     }
                     contador = false;
+
                     this.game();
                 }
             }
@@ -409,6 +415,7 @@ public class GameSketch extends PApplet {
     }
 
     public void game() {
+
         if (!confirmar) {
             m = 0;
         }
@@ -524,7 +531,7 @@ public class GameSketch extends PApplet {
                 image(line_meta, 275, ylinemeta);
             }
         }
-        this.genereateAnimals();
+        this.generateAnimals();
         image(animals[n], ordenadasanimales[n], abcisa2[n]);
         image(carplayers[auxGarage], xcarplayer, ycarplayer);
         this.generateCars();
@@ -548,6 +555,8 @@ public class GameSketch extends PApplet {
                 level1.stop();
                 Level2.stop();
                 Level3.stop();
+                key7=true;
+                key6=true;
                 this.mouseClicked();
             }
         }
@@ -614,30 +623,69 @@ public class GameSketch extends PApplet {
             image(car_up[5], ordenadasderecha[5], abcisa1[5]);
             abcisa1[5] = abcisa1[5] + vel;
         }
-        if (abcisa1[5] > 720) {
+        if (abcisa1[5] > 144) {
+            image(car_down[6], ordenadasizquierda[6], abcisa[6]);
+            abcisa[6] = abcisa[6] + vel;
+        }
+        if (abcisa[6] > 144) {
+            image(car_up[6], ordenadasderecha[6], abcisa1[6]);
+            abcisa1[6] = abcisa1[6] + vel;
+        }
+        if (abcisa1[6] > 144) {
+            image(car_down[7], ordenadasizquierda[7], abcisa[7]);
+            abcisa[7] = abcisa[7] + vel;
+        }
+        if (abcisa[7] > 144) {
+            image(car_up[7], ordenadasderecha[7], abcisa1[7]);
+            abcisa1[7] = abcisa1[7] + vel;
+        }
+        if (abcisa1[7] > 144) {
+            image(car_down[8], ordenadasizquierda[8], abcisa[8]);
+            abcisa[8] = abcisa[8] + vel;
+        }
+        if (abcisa[8] > 144) {
+            image(car_up[8], ordenadasderecha[8], abcisa1[8]);
+            abcisa1[8] = abcisa1[8] + vel;
+        }
+        if (abcisa1[8] > 144) {
+            image(car_down[9], ordenadasizquierda[9], abcisa[9]);
+            abcisa[9] = abcisa[9] + vel;
+        }
+        if (abcisa[9] > 144) {
+            image(car_up[9], ordenadasderecha[9], abcisa1[9]);
+            abcisa1[9] = abcisa1[9] + vel;
+        }
+        if (abcisa1[9] > 144) {
+            image(car_down[10], ordenadasizquierda[10], abcisa[10]);
+            abcisa[10] = abcisa[10] + vel;
+        }
+        if (abcisa[10] > 144) {
+            image(car_up[10], ordenadasderecha[10], abcisa1[10]);
+            abcisa1[10] = abcisa1[10] + vel;
+        }
+        if (abcisa1[10] > 720) {
             for (int i = 0; i < ordenadasderecha.length; i++) {
                 ordenadasderecha[i] = random(600, 920);
                 ordenadasizquierda[i] = random(275, 520);
             }
-            for (int i = 0; i <= 5; i++) {
+            for (int i = 0; i < abcisa.length; i++) {
                 abcisa1[i] = -160;
                 abcisa[i] = -160;
             }
-            acciones.shuffle(rutasShuffle, rutas);
-            acciones.shuffle(rutasupShuffle, rutasup);
-            acciones.shuffle(rutasdownShuffle, rutasdown);
             for (int i = 0; i < rutasup.length; i++) {
                 car_up[i] = (loadImage(rutasup[i]));
                 car_up[i].resize(ancho, largo);
             }
+
             for (int j = 0; j < rutasdown.length; j++) {
                 car_down[j] = (loadImage(rutasdown[j]));
                 car_down[j].resize(ancho, largo);
             }
         }
+
     }
 
-    public void genereateAnimals() {
+    public void generateAnimals() {
         if (n > 0) {
             while (ordenadasanimales[n] > ordenadasanimales[n - 1] - 50
                     && ordenadasanimales[n] < ordenadasanimales[n - 1] + 50) {
@@ -645,13 +693,14 @@ public class GameSketch extends PApplet {
             }
         }
         this.validacion();
-        if (contadores[n] == 12) {
+        if (contadores[n] == 22) {
             if (abcisa2[n] < 720) {
                 abcisa2[n] = abcisa2[n] + vel;
             } else {
                 n = n + 1;
             }
         }
+
         if (n > 14) {
             n = 0;
             for (int i = 0; i <= 14; i++) {
@@ -662,7 +711,7 @@ public class GameSketch extends PApplet {
     }
 
     public void crash() {
-        for (int h = 0; h <= 5; h++) {
+        for (int h = 0; h < car_up.length; h++) {
             if (xcarplayer > ordenadasizquierda[h] + ancho - 10) {
 
             } else if (xcarplayer + ancho < ordenadasizquierda[h] + 10) {
@@ -875,14 +924,12 @@ public class GameSketch extends PApplet {
                         if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
                             if (key6 == true) {
                                 this.exiting();
-                                key6 = false;
+                                key6=false;
                             }
+
                         }
                         if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-
                             this.retrying();
-                            key7 = false;
-
                         }
                     }
                 }
@@ -977,7 +1024,6 @@ public class GameSketch extends PApplet {
                     if (mouseX > 800 && mouseX < 1060) {
                         if (mouseY > 550 && mouseY < 610) {
                             auxGarage = m;
-                            // confirmar = true;
                             escena = 1;
                             spray.stop();
 
@@ -1066,9 +1112,9 @@ public class GameSketch extends PApplet {
 
     public void credits() {
         SoundLobby.stop();
-        if(sound10){
+        if (sound10) {
             soundCredits.loop();
-            sound10=false;
+            sound10 = false;
         }
         switch (subescena) {
         case 1:
@@ -1084,7 +1130,7 @@ public class GameSketch extends PApplet {
             image(creditos2, 0, 0);
             fill(255, 255, 255);
             triangle(91, 634, 144, 602, 144, 666);
-            
+
             break;
         }
         this.mouseClicked();
@@ -1092,7 +1138,7 @@ public class GameSketch extends PApplet {
 
     public void exiting() {
         escena = 1;
-        sw = 1;
+       this.retrying();
     }
 
     public void retrying() {
@@ -1128,18 +1174,18 @@ public class GameSketch extends PApplet {
         key2 = true;
         jugar = false;
         sw = 1;
-        escena=2;
+        escena = 2;
         for (int i = 0; i < ordenadasderecha.length; i++) {
             ordenadasderecha[i] = random(600, 920);
             ordenadasizquierda[i] = random(275, 520);
         }
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i < abcisa.length; i++) {
             abcisa1[i] = -160;
             abcisa[i] = -160;
         }
         for (int i = 0; i < abcisa2.length; i++) {
             abcisa2[i] = -87;
-            ordenadasanimales[i] = random(275,920);
+            ordenadasanimales[i] = random(275, 920);
         }
     }
 
