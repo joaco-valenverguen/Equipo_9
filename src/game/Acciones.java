@@ -1,5 +1,4 @@
 package game;
-
 import processing.core.PApplet;
 import processing.core.PImage;
 import java.util.Random;
@@ -81,7 +80,6 @@ public class Acciones {
             for (int i = 0; i <= 5; i++) {
                 this.abcisa1[i] = -160;
                 this.abcisa[i] = -160;
-
             }
         }
 

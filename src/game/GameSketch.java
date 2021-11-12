@@ -16,120 +16,32 @@ public class GameSketch extends PApplet {
 
     }
 
-    int ymarco3 = 503;
-    int xmarco3 = 565;
-    int ymarco2 = 281;
-    int xmarco2 = 465;
-    int timeacu = 0;
-    int x1 = 0;
-    int x = 0;
-    int sw = 1;
-    int ytext = 28;
-    int letras = 13;
-    int life = 3;
-    int timer;
-    int ancho = 70;
-    int largo = 150;
-    int anchoanimals = 60;
-    int altoanimals = 87;
-    int i;
-    int z = 0;
-    int n = 0;
-    int h;
-    int cont1 = 0;
-    int yletter = -200;
-    int timer2;
-    int timer3 = 1;
-    int escena = 1;
-    int yletter2 = -200;
-    int aux;
-    int cont;
-    int m;
-    int velsings = 7;
-    int yletter3 = -200;
-    int ylinemeta = -83;
-    int xmarco = -400;
-    int ymarco = -400;
-    int auxGarage = 0;
-    int subescena = 1;
-    float y = 0;
-    float backvel = 20;
-    float vel = 10;
-    float dificultad = 5;
-    float saveDificultad = 5;
-    float y1 = -720;
-    float y3 = -1440;
-    float y4 = -720;
-    float y5 = -720;
-    float y6 = -1440;
-    float y7 = -2160;
-    float y8 = -2880;
-    float xcarplayer = 600;
-    float ycarplayer = 520;
-    Float xcolision;
-    Float ycolision;
+    int ymarco3 = 503; int xmarco3 = 565; int ymarco2 = 281; int xmarco2 = 465; int timeacu = 0; int x1 = 0;
+    int x = 0; int sw = 1; int ytext = 28; int letras = 13; int life = 3; int timer; int ancho = 70;
+    int largo = 150; int anchoanimals = 60; int altoanimals = 87; int i; int z = 0; int n = 0; int h; 
+    int cont1 = 0; int yletter = -200; int timer2; int timer3 = 1; int escena = 1; int yletter2 = -200;
+    int aux; int cont; int m; int velsings = 7; int yletter3 = -200; int ylinemeta = -83; int xmarco = -400;
+    int ymarco = -400; int auxGarage = 0; int subescena = 1;
+
+    float y = 0; float backvel = 20; float vel = 10; float dificultad = 5; float saveDificultad = 5;
+    float y1 = -720; float y3 = -1440; float y4 = -720; float y5 = -720; float y6 = -1440; float y7 = -2160;
+    float y8 = -2880; float xcarplayer = 600; float ycarplayer = 520; Float xcolision;Float ycolision;
     float ybackground2 = -710;
 
-    PImage Background;
-    PImage Background1;
-    PImage Background2;
-    PImage Background3a;
-    PImage Background3b;
-    PImage Background3c;
-    PImage Background3d;
-    PImage gameOver;
-    PImage boom;
-    PImage lobby;
-    PImage check;
-    PImage retry;
-    PImage exit;
-    PImage letrero;
-    PImage escenario2;
-    PImage red;
-    PImage letrero2;
-    PImage corazon;
-    PImage garage;
-    PImage Background2b;
-    PFont fuente;
-    PImage letrero3;
-    PImage line_meta;
-    PImage youwin;
-    PImage marco;
-    PImage creditos1;
-    PImage creditos2;
-    PImage instrucciones1;
-    PImage options;
-    PImage onAudio;
-    PImage offAudio;
-    PImage marco2;
-    PImage marco3;
+    PImage Background; PImage Background1; PImage Background2; PImage Background3a; PImage Background3b;
+    PImage Background3c; PImage Background3d; PImage gameOver; PImage boom; PImage lobby; PImage check;
+    PImage retry; PImage exit; PImage letrero; PImage escenario2; PImage red; PImage letrero2; PImage corazon;
+    PImage garage; PImage Background2b; PFont fuente; PImage letrero3; PImage line_meta; PImage youwin; 
+    PImage marco; PImage creditos1; PImage creditos2; PImage instrucciones1; PImage options;    PImage onAudio;
+    PImage offAudio; PImage marco2; PImage marco3;
 
     
-    boolean key1 = true;
-    boolean key2 = true;
-    boolean key3 = true;
-    boolean key4 = true;
-    boolean key5 = true;
-    boolean key6 = true;
-    boolean key7 = true;
-    boolean mover = true;
-    boolean sound3 = true;
-    boolean sound4 = true;
-    boolean sound5 = true;
-    boolean sound6 = true;
-    boolean sound7 = true;
-    boolean lanzar;
-    boolean contador = true;
-    boolean velocimetro = true;
-    boolean sound8 = true;
-    boolean key8 = true;
-    boolean confirmar = false;
-    boolean sound9 = false;
-    boolean jugar = false;
-    boolean changeSubescena;
-    boolean swOptions = false;
-    boolean playSounds;
-    boolean SaveSounds =true;
+    boolean key1 = true; boolean key2 = true; boolean key3 = true; boolean key4 = true; boolean key5 = true;
+    boolean key6 = true; boolean key7 = true; boolean mover = true; boolean sound3 = true; boolean sound4 = true;
+    boolean sound5 = true; boolean sound6 = true; boolean sound7 = true; boolean lanzar; boolean contador = true;
+    boolean velocimetro = true; boolean sound8 = true; boolean key8 = true; boolean confirmar = false;
+    boolean sound9 = false; boolean jugar = false; boolean changeSubescena; boolean swOptions = false;
+    boolean playSounds; boolean SaveSounds =true;
 
     AudioClip soundBomm;
     AudioClip soundExtraLife;
@@ -566,7 +478,7 @@ public class GameSketch extends PApplet {
     }
 
     public void generateCars() {
-
+        
         image(car_down[0], ordenadasizquierda[0], abcisa[0]);
         abcisa[0] = abcisa[0] + vel;
         if (abcisa[0] > 144) {
