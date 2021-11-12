@@ -16,10 +16,10 @@ public class GameSketch extends PApplet {
 
     }
 
-    String a = "a";
-    char a1 = a.charAt(0);
-
-    int r = 0;
+    int ymarco3 = 503;
+    int xmarco3 = 565;
+    int ymarco2 = 281;
+    int xmarco2 = 465;
     int timeacu = 0;
     int x1 = 0;
     int x = 0;
@@ -55,6 +55,8 @@ public class GameSketch extends PApplet {
     float y = 0;
     float backvel = 20;
     float vel = 10;
+    float dificultad = 5;
+    float saveDificultad = 5;
     float y1 = -720;
     float y3 = -1440;
     float y4 = -720;
@@ -86,8 +88,6 @@ public class GameSketch extends PApplet {
     PImage red;
     PImage letrero2;
     PImage corazon;
-    PImage carplayer;
-    PImage welcome;
     PImage garage;
     PImage Background2b;
     PFont fuente;
@@ -101,7 +101,10 @@ public class GameSketch extends PApplet {
     PImage options;
     PImage onAudio;
     PImage offAudio;
+    PImage marco2;
+    PImage marco3;
 
+    
     boolean key1 = true;
     boolean key2 = true;
     boolean key3 = true;
@@ -125,6 +128,9 @@ public class GameSketch extends PApplet {
     boolean jugar = false;
     boolean changeSubescena;
     boolean swOptions = false;
+    boolean playSounds;
+    boolean SaveSounds =true;
+
     AudioClip soundBomm;
     AudioClip soundExtraLife;
     AudioClip SoundLobby;
@@ -187,10 +193,6 @@ public class GameSketch extends PApplet {
         timer = millis() / 1000;
         switch (escena) {
         case 1:
-            if (sound4 == true) {
-                SoundLobby.play();
-                sound4 = false;
-            }
             this.lobby();
             break;
         case 2:
@@ -276,8 +278,9 @@ public class GameSketch extends PApplet {
         options = loadImage("Images/options.png");
         onAudio = loadImage("Images/onAudio.png");
         offAudio = loadImage("Images/offAudio.png");
+        marco2 = loadImage("Images/marco2.png");
+        marco3 = loadImage("Images/marco2.png");
         marco.resize(74, 73);
-
         soundBomm = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export.wav"));
         soundExtraLife = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export1.wav"));
         StartRace = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/StartRace.wav"));
@@ -311,7 +314,14 @@ public class GameSketch extends PApplet {
     }
 
     public void lobby() {
-
+        if (SaveSounds) {
+            if (sound4 == true) {
+                SoundLobby.play();
+                sound4 = false;
+            }
+        }else{
+            SoundLobby.stop();
+        }
         background(lobby);
         fill(196, 196, 196, 300);
         rect(500, 280, 250, 50, 0, 24, 0, 72);
@@ -380,11 +390,15 @@ public class GameSketch extends PApplet {
 
         fill(0, 229, 159);
         square(1000, 450, 60);
+        if (SaveSounds) {
+            if (sound9) {
+                spray.play();
+                sound9 = false;
+            }
+        }else
+        
+        
 
-        if (sound9) {
-            spray.play();
-            sound9 = false;
-        }
         this.mouseClicked();
         carplayers[m].resize(160, 281);
         image(carplayers[m], 202, 270);
@@ -393,100 +407,9 @@ public class GameSketch extends PApplet {
 
     public void options() {
         background(options);
-        if (keyPressed == true) {
-            if (key == a1) {
-                if (r == 0) {
-                    r = 1;
-                }
-            }
-        }
-        if (r == 1) {
-            image(options, 0, 0);
-            image(swSongs[0], 575, 268);
-            if (keyPressed == true) {
-                if (key == a1) {
-                    swOptions = true;
-                }
-            }
-        }
-        if (swOptions) {
-            image(options, 0, 0);
-            image(swSongs[1], 575, 268);
-
-        }
-
-        // image(options, 0, 0);
-        // image(swSongs[0], 575, 268);
-        // if (mousePressed == true) {
-        // if (mouseX > 575 && mouseX < 706) {
-        // if (mouseY > 268 && mouseY < 379) {
-        // swOptions=true;
-        // }
-        // }
-        // }
-
-        // if (r == 0) {
-        // image(swSongs[0], 575, 268);
-        // }
-        // if (keyPressed == true) {
-        // if (key == a1) {
-        // r = 1;
-        // }
-        // }
-
-        // if (r == 1) {
-        // image(swSongs[1], 575, 268);
-        // }
-        // if (keyPressed == true) {
-        // if (key == a1) {
-        // r = 0;
-        // }
-        // }
-
-        // if (!swOptions) {
-        // image(options, 0, 0);
-        // image(swSongs[1], 575, 268);
-        // }
-        // if (mousePressed == true) {
-        // if (mouseX > 575 && mouseX < 706) {
-        // if (mouseY > 268 && mouseY < 379) {
-        // swOptions = true;
-        // }
-        // }
-        // }
-
-        // dificultades
-        // if (mousePressed == true)
-
-        // {
-        // if (mouseButton == LEFT) {
-        // if (mouseX > 360 && mouseX < 505) {
-        // if (mouseY > 508 && mouseY < 563) {
-        // System.out.println("botón fácil");
-        // }
-        // }
-        // }
-        // }
-        // if (mousePressed == true) {
-        // if (mouseButton == LEFT) {
-        // if (mouseX > 568 && mouseX < 713) {
-        // if (mouseY > 508 && mouseY < 563) {
-        // System.out.println("botón normal");
-        // }
-        // }
-        // }
-        // }
-
-        // if (mousePressed == true) {
-        // if (mouseButton == LEFT) {
-        // if (mouseX > 776 && mouseX < 921) {
-        // if (mouseY > 508 && mouseY < 563) {
-        // System.out.println("botón dificil");
-        // }
-        // }
-        // }
-        // }
-
+        this.mouseClicked();
+        image(marco2, xmarco2, ymarco2);
+        image(marco3, xmarco3, ymarco3);
     }
 
     public void game() {
@@ -496,8 +419,8 @@ public class GameSketch extends PApplet {
         key3 = true;
         if (timer3 % 20 == 0) {
             if (velocimetro == true) {
-                vel = vel + 5;
-                backvel = backvel + 5;
+                vel = vel + saveDificultad;
+                backvel = backvel + saveDificultad;
                 velocimetro = false;
             }
         } else {
@@ -511,9 +434,11 @@ public class GameSketch extends PApplet {
             sw = 3;
         }
         if (sw == 1) {
-            if (sound8 == true) {
-                level1.play();
-                sound8 = false;
+            if (SaveSounds) {
+                if (sound8 == true) {
+                    level1.play();
+                    sound8 = false;
+                }
             }
             image(Background, x, y);
             image(Background, x, y1);
@@ -523,20 +448,17 @@ public class GameSketch extends PApplet {
                 y = 0;
                 y1 = -720;
             }
-            // if (timer3 > 1 && timer3 < 4) {
-            // fill(255, 255, 255);
-            // textSize(50);
-            // text(" WELCOME \n TO \n SINCELEJO", xcarta, ycarta);
-            // // image(welcome, xcarta, ycarta);
-            // }
             image(letrero, 150, yletter);
             yletter += velsings;
         } else if (sw == 2) {
             level1.stop();
-            if (sound6 == true) {
-                Level2.play();
-                sound6 = false;
+            if (SaveSounds) {
+                if (sound6 == true) {
+                    Level2.play();
+                    sound6 = false;
+                }
             }
+
             if (key1) {
                 y = 0;
                 key1 = false;
@@ -558,10 +480,13 @@ public class GameSketch extends PApplet {
 
         } else if (sw == 3) {
             Level2.stop();
-            if (sound7 == true) {
-                Level3.play();
-                sound7 = false;
+            if (SaveSounds) {
+                if (sound7 == true) {
+                    Level3.play();
+                    sound7 = false;
+                }
             }
+
             if (key2) {
                 if (y3 > 0) {
                     y4 = y3 - 720;
@@ -627,13 +552,6 @@ public class GameSketch extends PApplet {
         // image(exit, 540, 330);
         // image(retry, 660, 330);
 
-        // }
-
-        // if (timer3 > 33 && timer3 < 36) {
-        // fill(255, 255, 255);
-        // textSize(50);
-        // text(" WELCOME \n TO \n CARTAGENA", xcarta, ycarta);
-        // // image(welcome, xcarta, ycarta);
         // }
         if (timer3 > 98) {
             ylinemeta += backvel;
@@ -1056,6 +974,55 @@ public class GameSketch extends PApplet {
                             escena = 1;
                             spray.stop();
 
+                        }
+                    }
+                }
+                if(escena==5){
+                    if (mouseX > 467 && mouseX < 612) {
+                        if (mouseY > 286 && mouseY < 341) {
+                            xmarco2 = 465;
+                            ymarco2 = 281;
+                            playSounds = true;
+    
+                        }
+                    }
+                    if (mouseX > 657 && mouseX < 802) {
+                        if (mouseY > 286 && mouseY < 341) {
+                            xmarco2 = 655;
+                            ymarco2 = 281;
+                            playSounds = false;
+                        }
+                    }
+                    if (mouseX > 360 && mouseX < 505) {
+                        if (mouseY > 508 && mouseY < 563) {
+                            xmarco3 = 357;
+                            ymarco3 = 503;
+                            dificultad = 2;
+                        }
+                    }
+                    if (mouseX > 568 && mouseX < 713) {
+                        if (mouseY > 508 && mouseY < 563) {
+                            xmarco3 = 565;
+                            ymarco3 = 503;
+                            dificultad = 5;
+                        }
+                    }
+                    if (mouseX > 776 && mouseX < 921) {
+                        if (mouseY > 508 && mouseY < 563) {
+                            xmarco3 = 773;
+                            ymarco3 = 503;
+                            vel=15;
+                            backvel=25;
+                            dificultad = 8;
+                        }
+                    }
+                    if (mouseX > 1107 && mouseX < 1252) {
+                        if (mouseY > 639 && mouseY < 694) {
+                            escena = 1;
+                            delay(300);
+                            saveDificultad = dificultad;
+                            SaveSounds = playSounds;
+    
                         }
                     }
                 }
