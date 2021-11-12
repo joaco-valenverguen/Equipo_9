@@ -144,22 +144,22 @@ public class GameSketch extends PApplet {
             "Images/carplayer_yellow.png", "Images/carplayer_red.png", "Images/carplayer_purple.png",
             "Images/carplayer_white.png", "Images/carplayer_green.png", "Images/carplayer_vinotinte.png",
             "Images/carplayer_lightblue.png" };
-    String[] rutasShuffle = { "Images/cangrejo.png", "Images/caracol.png", "Images/chiguiro.png", "Images/nti.png",
+    String[] rutas = { "Images/cangrejo.png", "Images/caracol.png", "Images/chiguiro.png", "Images/nti.png",
             "Images/gallo.png", "Images/gato_1.png", "Images/gato_2.png", "Images/oveja.png", "Images/panda.png",
             "Images/pato.png", "Images/perro_2.png", "Images/perro.png", "Images/pinguino.png", "Images/zorro_1.png",
             "Images/zorro_2.png" };
-    String[] rutas = new String[rutasShuffle.length];
-    String[] rutasupShuffle = { "Images/car_up1.png", "Images/car_up2.png", "Images/car_up3.png", "Images/car_up4.png",
+    String[] rutasup = { "Images/car_up1.png", "Images/car_up2.png", "Images/car_up3.png", "Images/car_up4.png",
             "Images/car_up5.png", "Images/car_up6.png", "Images/car_up7.png", "Images/car_up8.png",
             "Images/car_up9.png", "Images/car_up10.png", "Images/car_up11.png" };
-    String[] rutasup = new String[rutasupShuffle.length];
-    String[] rutasdownShuffle = { "Images/car_down1.png", "Images/car_down2.png", "Images/car_down3.png",
+    String[] rutasdown = { "Images/car_down1.png", "Images/car_down2.png", "Images/car_down3.png",
             "Images/car_down4.png", "Images/car_down5.png", "Images/car_down6.png", "Images/car_down7.png",
             "Images/car_down8.png", "Images/car_down9.png", "Images/car_down10.png", "Images/car_down11.png" };
-    String[] rutasdown = new String[rutasdownShuffle.length];
     PImage[] car_up = new PImage[rutasup.length];
+    PImage[] car_up_shuffle = new PImage[rutasup.length];
     PImage[] car_down = new PImage[rutasdown.length];
+    PImage[] car_down_shuffle = new PImage[rutasdown.length];
     PImage[] animals = new PImage[rutas.length];
+    PImage[] animals_shuffle = new PImage[rutas.length];
     PImage[] carplayers = new PImage[9];
 
     boolean colision;
@@ -182,9 +182,6 @@ public class GameSketch extends PApplet {
     @Override
 
     public void setup() {
-        acciones.shuffle(rutasShuffle, rutas);
-        acciones.shuffle(rutasupShuffle, rutasup);
-        acciones.shuffle(rutasdownShuffle, rutasdown);
         this.upFiles();
         frameRate(30);
     }
@@ -291,22 +288,26 @@ public class GameSketch extends PApplet {
         spray = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/Spray.wav"));
         soundCredits = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/oninonino.wav"));
         for (int i = 0; i < rutasup.length; i++) {
-            car_up[i] = (loadImage(rutasup[i]));
-            car_up[i].resize(ancho, largo);
+            car_up_shuffle[i] = (loadImage(rutasup[i]));
+            car_up_shuffle[i].resize(ancho, largo);
         }
+
         for (int j = 0; j < rutasdown.length; j++) {
-            car_down[j] = (loadImage(rutasdown[j]));
-            car_down[j].resize(ancho, largo);
+            car_down_shuffle[j] = (loadImage(rutasdown[j]));
+            car_down_shuffle[j].resize(ancho, largo);
         }
 
         for (int i = 0; i < rutas.length; i++) {
-            animals[i] = (loadImage(rutas[i]));
-            animals[i].resize(60, 87);
+            animals_shuffle[i] = (loadImage(rutas[i]));
+            animals_shuffle[i].resize(60, 87);
         }
         for (int i = 0; i < rutas_carplayers.length; i++) {
             carplayers[i] = loadImage(rutas_carplayers[i]);
 
         }
+        acciones.shuffle(car_down_shuffle, car_down);
+        acciones.shuffle(car_up_shuffle, car_up);
+        acciones.shuffle(animals_shuffle, animals);
     }
 
     public void lobby() {
@@ -555,8 +556,8 @@ public class GameSketch extends PApplet {
                 level1.stop();
                 Level2.stop();
                 Level3.stop();
-                key7=true;
-                key6=true;
+                key7 = true;
+                key6 = true;
                 this.mouseClicked();
             }
         }
@@ -681,6 +682,10 @@ public class GameSketch extends PApplet {
                 car_down[j] = (loadImage(rutasdown[j]));
                 car_down[j].resize(ancho, largo);
             }
+
+            acciones.shuffle(car_down_shuffle, car_down);
+            acciones.shuffle(car_up_shuffle, car_up);
+            acciones.shuffle(animals_shuffle, animals);
         }
 
     }
@@ -924,7 +929,7 @@ public class GameSketch extends PApplet {
                         if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
                             if (key6 == true) {
                                 this.exiting();
-                                key6=false;
+                                key6 = false;
                             }
 
                         }
@@ -1138,10 +1143,11 @@ public class GameSketch extends PApplet {
 
     public void exiting() {
         escena = 1;
-       this.retrying();
+        this.retrying();
     }
 
     public void retrying() {
+        System.out.println("Retrying");
         backvel = 20;
         vel = 10;
         y = 0;
@@ -1164,10 +1170,15 @@ public class GameSketch extends PApplet {
         sound7 = true;
         sound8 = true;
         if (key5 == true) {
-            acciones.shuffle(rutasShuffle, rutas);
-            acciones.shuffle(rutasupShuffle, rutasup);
-            acciones.shuffle(rutasdownShuffle, rutasdown);
+            acciones.shuffle(car_down_shuffle, car_down);
+            acciones.shuffle(car_up_shuffle, car_up);
+            acciones.shuffle(animals_shuffle, animals);
+            // shuffle aqui
         }
+
+        acciones.shuffle(car_down_shuffle, car_down);
+        acciones.shuffle(car_up_shuffle, car_up);
+        acciones.shuffle(animals_shuffle, animals);
         contador = true;
         key4 = true;
         key1 = true;
