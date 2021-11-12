@@ -664,6 +664,7 @@ public class GameSketch extends PApplet {
             abcisa1[10] = abcisa1[10] + vel;
         }
         if (abcisa1[10] > 720) {
+            
             for (int i = 0; i < ordenadasderecha.length; i++) {
                 ordenadasderecha[i] = random(600, 920);
                 ordenadasizquierda[i] = random(275, 520);
@@ -672,15 +673,7 @@ public class GameSketch extends PApplet {
                 abcisa1[i] = -160;
                 abcisa[i] = -160;
             }
-            for (int i = 0; i < rutasup.length; i++) {
-                car_up[i] = (loadImage(rutasup[i]));
-                car_up[i].resize(ancho, largo);
-            }
 
-            for (int j = 0; j < rutasdown.length; j++) {
-                car_down[j] = (loadImage(rutasdown[j]));
-                car_down[j].resize(ancho, largo);
-            }
         }
 
     }
