@@ -109,6 +109,31 @@ public class Acciones {
             hacer = false;
         }
         System.out.println("Done " + XD);
+        System.out.println(salida[0]);
+        System.out.println(salida[1]);
+        XD++;
+    }
+
+    public void reshuffle(PImage[] array, PImage[] salida) {
+        boolean hacer = false;
+        int d = 0;
+
+        while (salida[array.length - 1] == null) {
+            int s = random.nextInt(array.length);
+            for (int j = 0; j < d; j++) {
+                if (array[s].equals(salida[j])) {
+                    hacer = true;
+                }
+            }
+            if (hacer == false) {
+                salida[d] = array[s];
+                d++;
+            }
+            hacer = false;
+        }
+        System.out.println("Done " + XD);
+        System.out.println(salida[0]);
+        System.out.println(salida[1]);
         XD++;
     }
 
