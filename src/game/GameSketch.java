@@ -1,6 +1,9 @@
 package game;
 
 import java.util.Random;
+
+import javax.imageio.event.IIOWriteWarningListener;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PFont;
@@ -16,6 +19,9 @@ public class GameSketch extends PApplet {
 
     }
 
+    int swFR;
+    int xmarco4 = -300;
+    int ymarco4 = -300;
     int ymarco3 = 503;
     int xmarco3 = 565;
     int ymarco2 = 281;
@@ -51,6 +57,7 @@ public class GameSketch extends PApplet {
     int auxGarage = 0;
     int subescena = 1;
 
+    float y2 = 0;
     float y = 0;
     float backvel = 20;
     float vel = 10;
@@ -59,6 +66,13 @@ public class GameSketch extends PApplet {
     float y1 = -720;
     float y3 = -1440;
     float y4 = -720;
+    float y4sw = -720;
+    float ysw = 0;
+    float y1sw = -720;
+    float y5sw = 0;
+    float y6sw = -720;
+    float y7sw = -1440;
+    float y8sw = -2160;
     float y5 = -720;
     float y6 = -1440;
     float y7 = -2160;
@@ -100,6 +114,10 @@ public class GameSketch extends PApplet {
     PImage options;
     PImage marco2;
     PImage marco3;
+    PImage marco4;
+    PImage chooseMaps;
+    PImage instrucciones2;
+    PImage escenarioFR1;
 
     boolean key1 = true;
     boolean key2 = true;
@@ -108,28 +126,32 @@ public class GameSketch extends PApplet {
     boolean key5 = true;
     boolean key6 = true;
     boolean key7 = true;
+    boolean key8 = true;
+    boolean key9 = true;
     boolean mover = true;
     boolean sound3 = true;
     boolean sound4 = true;
     boolean sound5 = true;
     boolean sound6 = true;
     boolean sound7 = true;
+    boolean sound8 = true;
+    boolean sound9 = false;
     boolean sound10 = true;
     boolean lanzar;
     boolean contador = true;
     boolean velocimetro = true;
-    boolean sound8 = true;
-    boolean key8 = true;
     boolean confirmar = false;
-    boolean sound9 = false;
+
     boolean jugar = false;
     boolean changeSubescena;
     boolean swOptions = false;
     boolean playSounds;
     boolean SaveSounds = true;
-    boolean key9 = true;
     boolean choqueder;
     boolean choqueizq;
+    boolean Maps = false;
+    boolean launchFR = false;
+    boolean launchIns = false;
 
     AudioClip soundBomm;
     AudioClip soundExtraLife;
@@ -141,6 +163,7 @@ public class GameSketch extends PApplet {
     AudioClip level1;
     AudioClip spray;
     AudioClip soundCredits;
+    AudioClip SoundYouWin;
 
     String[] rutas_carplayers = { "Images/carplayer_orange.png", "Images/carplayer_blue.png",
             "Images/carplayer_yellow.png", "Images/carplayer_red.png", "Images/carplayer_purple.png",
@@ -156,7 +179,7 @@ public class GameSketch extends PApplet {
     String[] rutasdown = { "Images/car_down1.png", "Images/car_down2.png", "Images/car_down3.png",
             "Images/car_down4.png", "Images/car_down5.png", "Images/car_down6.png", "Images/car_down7.png",
             "Images/car_down8.png", "Images/car_down9.png", "Images/car_down10.png", "Images/car_down11.png" };
-    
+
     PImage[] car_up = new PImage[rutasup.length];
     PImage[] car_up_shuffle = new PImage[rutasup.length];
     PImage[] car_down = new PImage[rutasdown.length];
@@ -233,6 +256,9 @@ public class GameSketch extends PApplet {
                 }
             }
             break;
+        case 3:
+            this.freeRace();
+            break;
         case 4:
             this.garage();
             break;
@@ -279,6 +305,9 @@ public class GameSketch extends PApplet {
         options = loadImage("Images/options.png");
         marco2 = loadImage("Images/marco2.png");
         marco3 = loadImage("Images/marco2.png");
+        chooseMaps = loadImage("Images/chooseMaps.png");
+        marco4 = loadImage("Images/marco4.png");
+        instrucciones2 = loadImage("Images/instrucciones2.png");
         marco.resize(74, 73);
         soundBomm = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export.wav"));
         soundExtraLife = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export1.wav"));
@@ -290,7 +319,8 @@ public class GameSketch extends PApplet {
         level1 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/soundlevel1.wav"));
         spray = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/Spray.wav"));
         soundCredits = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/oninonino.wav"));
-        
+        SoundYouWin = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/SoundYouWin.wav"));
+
         for (int i = 0; i < rutasup.length; i++) {
             car_up_shuffle[i] = (loadImage(rutasup[i]));
             car_up_shuffle[i].resize(ancho, largo);
@@ -496,22 +526,13 @@ public class GameSketch extends PApplet {
                 }
             }
 
-            if (key2) {
-                if (y3 > 0) {
-                    y4 = y3 - 720;
-
-                }
-                if (y4 > 0) {
-                    y3 = y4 - 720;
-
-                }
-                key2 = false;
-            }
             if (y4 < 720) {
                 y4 = y4 + backvel;
+                image(Background2b, x, y4);
             }
             if (y3 < 720) {
                 y3 = y3 + backvel;
+                image(Background2, x, y3);
             }
             image(Background2b, x, y4);
             image(Background3a, x, y5);
@@ -544,7 +565,6 @@ public class GameSketch extends PApplet {
         this.texField();
         this.crash();
         if (life == 0) {
-
             if (key3 == true) {
                 if (sound5 == true) {
                     GameOver.play();
@@ -567,7 +587,7 @@ public class GameSketch extends PApplet {
             }
         }
 
-        if (timer3 > 98) {
+        if (timer3 > 99) {
             ylinemeta += backvel;
             image(line_meta, 275, ylinemeta);
 
@@ -575,6 +595,170 @@ public class GameSketch extends PApplet {
         if (timer3 == 100) {
             backvel = 0;
             vel = 0;
+            mover = false;
+        }
+
+    }
+
+    public void freeRace() {
+
+        image(chooseMaps, 0, 0);
+        image(marco4, xmarco4, ymarco4);
+
+        {
+            fill(255, 255, 255);
+            rect(51, 42, 40, 20);
+        }
+        {
+            fill(255, 255, 255);
+            triangle(51, 35, 51, 69, 26, 52);
+        }
+        this.mouseClicked();
+        if (launchIns) {
+            image(instrucciones2, 0, 0);
+        }
+        if (launchFR) {
+            launchIns = false;
+            if (timer3 % 20 == 0) {
+                if (velocimetro == true) {
+                    vel = vel + 5;
+                    backvel = backvel + 5;
+                    velocimetro = false;
+                    ;
+                }
+            } else {
+                velocimetro = true;
+            }
+            carplayers[auxGarage].resize(ancho, largo);
+            SoundLobby.stop();
+            if (sound3 == true) {
+                StartRace.play();
+                sound3 = false;
+            }
+            if (key4) {
+                aux = timer;
+                key4 = false;
+            }
+            timer2 = timer - aux;
+            if (contador) {
+                image(escenarioFR1, x, y);
+                image(carplayers[auxGarage], xcarplayer, ycarplayer);
+                filter(BLUR, 5);
+                textFont(fuente);
+                fill(255, 255, 255);
+                textSize(120);
+                text(3 - timer2, 600, 360);
+            }
+            if (timer2 > 3) {
+                if (mover == true) {
+                    timer3 = timer2 - 3;
+                }
+                contador = false;
+                switch (swFR) {
+                case 1:
+                    if (SaveSounds) {
+                        if (sound8 == true) {
+                            level1.loop();
+                            sound8 = false;
+                        }
+                    }
+                    image(Background, x, ysw);
+                    image(Background, x, y1sw);
+                    ysw = ysw + backvel;
+                    y1sw = y1sw + backvel;
+                    if (ysw >= 720) {
+                        ysw = 0;
+                        y1sw = -720;
+                    }
+                    image(letrero, 150, yletter);
+                    yletter += velsings;
+                    image(carplayers[auxGarage], xcarplayer, ycarplayer);
+                    break;
+                case 2:
+                    if (SaveSounds) {
+                        if (sound6 == true) {
+                            Level2.loop();
+                            sound6 = false;
+                        }
+                    }
+                    image(Background2, x, y2);
+                    image(Background2b, x, y4sw);
+                    y2 = y2 + backvel;
+                    y4sw = y4sw + backvel;
+                    if (y2 >= 720) {
+                        y2 = y4sw - 720;
+                    }
+                    if (y4sw >= 720) {
+                        y4sw = y2 - 720;
+                    }
+                    image(letrero2, 150, yletter2);
+                    yletter2 += velsings;
+                    image(carplayers[auxGarage], xcarplayer, ycarplayer);
+                    break;
+                case 3:
+                    Level2.stop();
+                    if (SaveSounds) {
+                        if (sound7 == true) {
+                            Level3.play();
+                            sound7 = false;
+                        }
+                    }
+
+                    image(Background2b, x, y4sw);
+                    image(Background3a, x, y5sw);
+                    image(Background3b, x, y6sw);
+                    image(Background3c, x, y7sw);
+                    image(Background3d, x, y8sw);
+                    y5sw += backvel;
+                    y6sw += backvel;
+                    y7sw += backvel;
+                    y8sw += backvel;
+                    if (y8sw >= 0) {
+                        y5sw = y8sw - 720;
+                        y6sw = y5sw - 720;
+                        y7sw = y6sw - 720;
+
+                    }
+                    if (y8sw >= 720) {
+                        y8sw = y7sw - 720;
+                    }
+                    image(letrero3, 150, yletter3);
+                    yletter3 += velsings;
+                    if (timer3 > 99) {
+                        ylinemeta += backvel;
+                        image(line_meta, 275, ylinemeta);
+                    }
+                    break;
+                }
+                image(carplayers[auxGarage], xcarplayer, ycarplayer);
+                image(animals[n], ordenadasanimales[n], abcisa2[n]);
+                this.generateAnimals();
+                this.generateCars();
+                this.crash();
+                this.textFieldFR();
+            }
+        }
+        if (life == 0) {
+            if (key3 == true) {
+                if (sound5 == true) {
+                    GameOver.play();
+                    sound5 = false;
+                }
+                backvel = 0;
+                vel = 0;
+                mover = false;
+                exit.resize(80, 90);
+                retry.resize(80, 90);
+                image(gameOver, 350, 0);
+                image(exit, 540, 330);
+                image(retry, 660, 330);
+                level1.stop();
+                Level2.stop();
+                Level3.stop();
+                key7 = true;
+                key6 = true;
+                this.mouseClicked();
+            }
         }
 
     }
@@ -791,14 +975,22 @@ public class GameSketch extends PApplet {
 
     }
 
-    public void endGame() {
-
-        if (timer == 100 || life == 0) {
-            xcarplayer = random(275, 920);
-            ycarplayer = 520;
-            life = 3;
-            cont = 0;
-        }
+    public void textFieldFR() {
+        Float distancia = (vel * (float) timer3) / 100;
+        Float score = (distancia + timer3) * 2;
+        corazon.resize(24, 23);
+        image(corazon, 1092, ytext - 19);
+        textFont(fuente);
+        fill(255, 255, 255);
+        text(life + "P", 1055, ytext);
+        text("Distancia:", 1055, ytext * 5);
+        text(distancia + " km", 1055, ytext * 6);
+        text("Velocidad:", 1055, ytext * 10);
+        text(vel + " km/h", 1055, ytext * 11);
+        text("Tiempo:", 1055, ytext * 15);
+        text(timer3 + " s", 1055, ytext * 16);
+        text("Puntaje:", 1055, ytext * 20);
+        text(score + " pts.", 1055, ytext * 21);
     }
 
     @Override
@@ -849,7 +1041,6 @@ public class GameSketch extends PApplet {
 
             }
         }
-
     }
 
     public void validacion() {
@@ -932,6 +1123,66 @@ public class GameSketch extends PApplet {
                         }
                         if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
                             this.retrying();
+                        }
+                    }
+                }
+                if (escena == 3) {
+                    if (mouseX > 51 && mouseX < 403) {
+                        if (mouseY > 233 && mouseY < 491) {
+                            xmarco4 = 41;
+                            ymarco4 = 223;
+                            Maps = true;
+                            swFR = 1;
+                            escenarioFR1 = Background;
+                        }
+                    }
+                    if (mouseX > 464 && mouseX < 816) {
+                        if (mouseY > 233 && mouseY < 491) {
+                            xmarco4 = 454;
+                            ymarco4 = 223;
+                            escenarioFR1 = Background2;
+                            swFR = 2;
+                            Maps = true;
+                        }
+                    }
+                    if (mouseX > 877 && mouseX < 1229) {
+                        if (mouseY > 233 && mouseY < 491) {
+                            xmarco4 = 867;
+                            ymarco4 = 223;
+                            escenarioFR1 = Background3a;
+                            Maps = true;
+                            swFR = 3;
+                        }
+                    }
+                    if (Maps) {
+                        if (mouseX > 527 && mouseX < 752) {
+                            if (mouseY > 634 && mouseY < 693) {
+                                launchIns = true;
+                            }
+                        }
+                    }
+                    if (launchIns) {
+                        if (mouseX > 1098 && mouseX < 1223) {
+                            if (mouseY > 639 && mouseY < 690) {
+                                launchFR = true;
+                            }
+                        }
+                    }
+                    if (mouseX > 26 && mouseX < 91) {
+                        if (mouseY > 35 && mouseY < 69) {
+                            escena = 1;
+                        }
+                    }
+                    if (mover == false) {
+                        if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
+                            if (key6 == true) {
+                                this.exitingFR();
+                                key6 = false;
+                            }
+
+                        }
+                        if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
+                            this.retryingFR();
                         }
                     }
                 }
@@ -1110,6 +1361,7 @@ public class GameSketch extends PApplet {
                 }
             }
         }
+
     }
 
     public void credits() {
@@ -1143,8 +1395,12 @@ public class GameSketch extends PApplet {
         this.retrying();
     }
 
+    public void exitingFR() {
+        escena = 1;
+        this.retryingFR();
+    }
+
     public void retrying() {
-        System.out.println("Retrying");
         backvel = 20;
         vel = 10;
         y = 0;
@@ -1175,6 +1431,50 @@ public class GameSketch extends PApplet {
         key2 = true;
         jugar = false;
         sw = 1;
+        for (int i = 0; i < ordenadasderecha.length; i++) {
+            ordenadasderecha[i] = random(600, 920);
+            ordenadasizquierda[i] = random(275, 520);
+        }
+        for (int i = 0; i < abcisa.length; i++) {
+            abcisa1[i] = -160;
+            abcisa[i] = -160;
+        }
+        for (int i = 0; i < abcisa2.length; i++) {
+            abcisa2[i] = -395;
+            ordenadasanimales[i] = random(275, 920);
+        }
+    }
+
+    public void retryingFR() {
+        backvel = 20;
+        vel = 10;
+        ysw = 0;
+        y1sw = -720;
+        y2 = 0;
+        y4sw = -720;
+        y5sw = 0;
+        y6sw = -720;
+        y7sw = -1440;
+        y8sw = -2160;
+        xcarplayer = 600;
+        ycarplayer = 520;
+        life = 3;
+        mover = true;
+        sound3 = true;
+        sound4 = true;
+        sound5 = true;
+        sound6 = true;
+        sound7 = true;
+        sound8 = true;
+        acciones.shuffle(car_down_shuffle, car_down);
+        acciones.shuffle(car_up_shuffle, car_up);
+        acciones.shuffle(animals_shuffle, animals);
+        contador = true;
+        key4 = true;
+        key1 = true;
+        key2 = true;
+        launchFR = false;
+        launchIns = false;
         for (int i = 0; i < ordenadasderecha.length; i++) {
             ordenadasderecha[i] = random(600, 920);
             ordenadasizquierda[i] = random(275, 520);
