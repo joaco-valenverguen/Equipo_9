@@ -66,7 +66,6 @@ public class GameSketch extends PApplet {
     float y1 = -720;
     float y3 = -1440;
     float y4 = -720;
-<<<<<<< HEAD
     float y4sw = -720;
     float ysw = 0;
     float y1sw = -720;
@@ -74,9 +73,6 @@ public class GameSketch extends PApplet {
     float y6sw = -720;
     float y7sw = -1440;
     float y8sw = -2160;
-=======
-    float y4a = -720;
->>>>>>> f21717b07ee7446730ca9524c5dcb23c9adeeec3
     float y5 = -720;
     float y6 = -1440;
     float y7 = -2160;
@@ -531,8 +527,6 @@ public class GameSketch extends PApplet {
                 }
             }
 
-<<<<<<< HEAD
-=======
             // if (key2) {
             // if (y3 > -720 && y3 < 0) {
             // y4a = y3 - 720;
@@ -544,7 +538,6 @@ public class GameSketch extends PApplet {
             // }
             // key2 = false;
             // }
->>>>>>> f21717b07ee7446730ca9524c5dcb23c9adeeec3
             if (y4 < 720) {
                 y4 = y4 + backvel;
                 image(Background2b, x, y4);
@@ -615,7 +608,6 @@ public class GameSketch extends PApplet {
             backvel = 0;
             vel = 0;
             mover = false;
-<<<<<<< HEAD
         }
 
     }
@@ -779,8 +771,6 @@ public class GameSketch extends PApplet {
                 key6 = true;
                 this.mouseClicked();
             }
-=======
->>>>>>> f21717b07ee7446730ca9524c5dcb23c9adeeec3
         }
 
     }
@@ -889,23 +879,6 @@ public class GameSketch extends PApplet {
                 abcisa1[i] = -160;
                 abcisa[i] = -160;
             }
-<<<<<<< HEAD
-
-=======
-            for (int i = 0; i < rutasup.length; i++) {
-                car_up[i] = (loadImage(rutasup[i]));
-                car_up[i].resize(ancho, largo);
-            }
-
-            for (int j = 0; j < rutasdown.length; j++) {
-                car_down[j] = (loadImage(rutasdown[j]));
-                car_down[j].resize(ancho, largo);
-            }
-            System.out.println("oleada terminada");
-            acciones.reshuffle(car_down_shuffle, car_down);
-            acciones.reshuffle(car_up_shuffle, car_up);
-            System.out.println("Array barajado");
->>>>>>> f21717b07ee7446730ca9524c5dcb23c9adeeec3
         }
 
     }
@@ -1460,20 +1433,9 @@ public class GameSketch extends PApplet {
         sound6 = true;
         sound7 = true;
         sound8 = true;
-<<<<<<< HEAD
         acciones.shuffle(car_down_shuffle, car_down);
         acciones.shuffle(car_up_shuffle, car_up);
         acciones.shuffle(animals_shuffle, animals);
-=======
-        if (key5 == true) {
-            acciones.shuffle(car_down_shuffle, car_down);
-            acciones.shuffle(car_up_shuffle, car_up);
-            acciones.shuffle(animals_shuffle, animals);
-            System.out.println("Array barajado");
-            // shuffle aqui
-        }
-
->>>>>>> f21717b07ee7446730ca9524c5dcb23c9adeeec3
         contador = true;
         key4 = true;
         key1 = true;
