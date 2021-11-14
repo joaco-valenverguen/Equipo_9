@@ -18,7 +18,8 @@ public class GameSketch extends PApplet {
         size(1280, 720);
 
     }
-
+    int newvelback;
+    int newvel;
     int swFR;
     int xmarco4 = -300;
     int ymarco4 = -300;
@@ -146,7 +147,7 @@ public class GameSketch extends PApplet {
     boolean jugar = false;
     boolean changeSubescena;
     boolean swOptions = false;
-    boolean playSounds;
+    boolean playSounds = true;
     boolean SaveSounds = true;
     boolean choqueder;
     boolean choqueizq;
@@ -579,7 +580,10 @@ public class GameSketch extends PApplet {
                 this.mouseClicked();
             }
         }
-
+        this.generateAnimals();
+        this.generateCars();
+        image(animals[n], ordenadasanimales[n], abcisa2[n]);
+        image(carplayers[auxGarage], xcarplayer, ycarplayer);
         if (timer3 > 98) {
             if (ylinemeta < ycarplayer) {
                 ylinemeta += backvel;
@@ -601,10 +605,7 @@ public class GameSketch extends PApplet {
                 sound11 = false;
             }
         }
-        this.generateAnimals();
-        this.generateCars();
-        image(animals[n], ordenadasanimales[n], abcisa2[n]);
-        image(carplayers[auxGarage], xcarplayer, ycarplayer);
+
     }
 
     public void freeRace() {
@@ -1332,6 +1333,8 @@ public class GameSketch extends PApplet {
                             dificultad = 2;
                             vel = 5;
                             backvel = 10;
+                            newvel=5;
+                            newvelback=10;  
                         }
                     }
                     if (mouseX > 568 && mouseX < 713) {
@@ -1339,17 +1342,22 @@ public class GameSketch extends PApplet {
                             xmarco3 = 565;
                             ymarco3 = 503;
                             dificultad = 5;
+                            newvel=10;
                             vel = 10;
                             backvel = 20;
+                            newvel=10;
+                            newvelback=20; 
                         }
                     }
                     if (mouseX > 776 && mouseX < 921) {
                         if (mouseY > 508 && mouseY < 563) {
                             xmarco3 = 773;
                             ymarco3 = 503;
+                            dificultad = 8;
                             vel = 15;
                             backvel = 25;
-                            dificultad = 8;
+                            newvel=15;
+                            newvelback=25; 
                         }
                     }
                     if (mouseX > 1107 && mouseX < 1252) {
@@ -1427,8 +1435,8 @@ public class GameSketch extends PApplet {
     }
 
     public void retrying() {
-        backvel = 20;
-        vel = 10;
+        backvel = newvelback;
+        vel = newvel;
         y = 0;
         y1 = -720;
         y3 = -1440;
