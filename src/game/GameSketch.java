@@ -1,9 +1,7 @@
 package game;
 
 import java.util.Random;
-
 import javax.imageio.event.IIOWriteWarningListener;
-
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PFont;
@@ -12,14 +10,15 @@ import java.applet.AudioClip;
 public class GameSketch extends PApplet {
     Acciones acciones = new Acciones(this);
     Random random = new Random();
+    Lobby lobbyx = new Lobby(this);
 
     @Override
     public void settings() {
         size(1280, 720);
-
     }
-    int newvelback;
-    int newvel;
+
+    int newvelback = 20;
+    int newvel = 10;
     int swFR;
     int xmarco4 = -300;
     int ymarco4 = -300;
@@ -57,7 +56,12 @@ public class GameSketch extends PApplet {
     int ymarco = -400;
     int auxGarage = 0;
     int subescena = 1;
+    int pause = 0;
+    int timer4;
 
+    float velresume = 3;
+    float backvelresume = 3;
+    float ybackground2 = -710;
     float y2 = 0;
     float y = 0;
     float backvel = 20;
@@ -82,7 +86,6 @@ public class GameSketch extends PApplet {
     float ycarplayer = 520;
     Float xcolision;
     Float ycolision;
-    float ybackground2 = -710;
 
     PImage Background;
     PImage Background1;
@@ -119,9 +122,9 @@ public class GameSketch extends PApplet {
     PImage chooseMaps;
     PImage instrucciones2;
     PImage escenarioFR1;
+    PImage menuPause;
 
     boolean key1 = true;
-    boolean key2 = true;
     boolean key3 = true;
     boolean key4 = true;
     boolean key5 = true;
@@ -129,6 +132,9 @@ public class GameSketch extends PApplet {
     boolean key7 = true;
     boolean key8 = true;
     boolean key9 = true;
+    boolean key10 = false;
+    boolean key11 = false;
+    boolean key12 = true;
     boolean mover = true;
     boolean sound3 = true;
     boolean sound4 = true;
@@ -143,7 +149,6 @@ public class GameSketch extends PApplet {
     boolean contador = true;
     boolean velocimetro = true;
     boolean confirmar = false;
-
     boolean jugar = false;
     boolean changeSubescena;
     boolean swOptions = false;
@@ -154,7 +159,8 @@ public class GameSketch extends PApplet {
     boolean Maps = false;
     boolean launchFR = false;
     boolean launchIns = false;
-
+    String p = "p";
+    char pausa = p.charAt(0);
     AudioClip soundBomm;
     AudioClip soundExtraLife;
     AudioClip SoundLobby;
@@ -193,6 +199,7 @@ public class GameSketch extends PApplet {
     boolean[] boleeanarray = { false, false, false, false, false, false, false, false, false, false, false, false,
             false, false, false, };
     int[] contadores = new int[15];
+
     float[] ordenadasderecha = { random(600, 920), random(600, 920), random(600, 920), random(600, 920),
             random(600, 920), random(600, 920), random(600, 920), random(600, 920), random(600, 920), random(600, 920),
             random(600, 920) };
@@ -215,11 +222,11 @@ public class GameSketch extends PApplet {
 
     @Override
     public void draw() {
-
         timer = millis() / 1000;
+        timer4 = millis();
         switch (escena) {
         case 1:
-            this.lobby();
+            lobbyx.run();
             break;
         case 2:
             if (!jugar) {
@@ -228,7 +235,7 @@ public class GameSketch extends PApplet {
             this.mouseClicked();
             if (jugar) {
                 carplayers[auxGarage].resize(ancho, largo);
-                SoundLobby.stop();
+                lobbyx.SoundLobby.stop();
                 if (sound3 == true) {
                     StartRace.play();
                     sound3 = false;
@@ -252,7 +259,6 @@ public class GameSketch extends PApplet {
                         timer3 = timer2 - 3;
                     }
                     contador = false;
-
                     this.game();
                 }
             }
@@ -277,7 +283,7 @@ public class GameSketch extends PApplet {
         letrero.resize(200, 200);
         boom = loadImage("Images/boom2.png");
         boom.resize(200, 200);
-        red = loadImage("images/red.png");
+        red = loadImage("Images/red.png");
         red.resize(200, 200);
         letrero2 = loadImage("Images/letreroCartagena.png");
         letrero2.resize(200, 200);
@@ -294,11 +300,10 @@ public class GameSketch extends PApplet {
         gameOver = loadImage("Images/GameOver.png");
         retry = loadImage("Images/Retry_buttom.png");
         exit = loadImage("Images/Exit_buttom.png");
-        lobby = loadImage("Images/lobby.png");
         garage = loadImage("Images/garage1.png");
         Background2b = loadImage("Images/cartacho.png");
         line_meta = loadImage("Images/Line_meta.png");
-        youwin = loadImage("Images/Youwin.png");
+        youwin = loadImage("Images/youwin.png");
         marco = loadImage("Images/marco.png");
         creditos1 = loadImage("Images/creditos1.png");
         creditos2 = loadImage("Images/credito2.png");
@@ -309,11 +314,12 @@ public class GameSketch extends PApplet {
         chooseMaps = loadImage("Images/chooseMaps.png");
         marco4 = loadImage("Images/marco4.png");
         instrucciones2 = loadImage("Images/instrucciones2.png");
+        menuPause = loadImage("Images/menuPause.png");
         marco.resize(74, 73);
+        lobbyx.upFiles(fuente);
         soundBomm = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export.wav"));
         soundExtraLife = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/export1.wav"));
         StartRace = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/StartRace.wav"));
-        SoundLobby = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/SoundLobby.wav"));
         GameOver = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/SoundGameOver.wav"));
         Level2 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/ulala.wav"));
         Level3 = java.applet.Applet.newAudioClip(getClass().getResource("/sounds/songquilla.wav"));
@@ -346,36 +352,7 @@ public class GameSketch extends PApplet {
         System.out.println("Primer Shuffle realizado");
     }
 
-    public void lobby() {
-        if (SaveSounds) {
-            if (sound4 == true) {
-                SoundLobby.play();
-                sound4 = false;
-            }
-        } else {
-            SoundLobby.stop();
-        }
-
-        background(lobby);
-        fill(196, 196, 196, 300);
-        rect(500, 280, 250, 50, 0, 24, 0, 72);
-        rect(500, 380, 250, 50, 0, 24, 0, 72);
-        rect(500, 480, 250, 50, 0, 24, 0, 72);
-        rect(500, 580, 250, 50, 0, 24, 0, 72);
-        rect(940, 650, 200, 50, 0, 24, 0, 72);
-        textFont(fuente);
-        fill(0, 0, 0);
-        textSize(48);
-        text("LA COSTA TOUR", 300, 120);
-        textSize(24);
-        noStroke();
-        text("CARRERA", 540, 320);
-        text("FREE RACE", 515, 420);
-        text("GARAGE", 550, 520);
-        text("OPCIONES", 530, 620);
-        text("CREDITOS", 945, 690);
-        this.mouseClicked();
-    }
+   
 
     public void garage() {
         background(garage);
@@ -462,7 +439,6 @@ public class GameSketch extends PApplet {
                 vel = vel + saveDificultad;
                 backvel = backvel + saveDificultad;
                 velocimetro = false;
-                ;
             }
         } else {
             velocimetro = true;
@@ -556,8 +532,21 @@ public class GameSketch extends PApplet {
             yletter3 += velsings;
         }
 
+        if (timer3 > 98) {
+            if (ylinemeta < ycarplayer) {
+                ylinemeta += backvel;
+            } else {
+                backvel = 0;
+                vel = 0;
+            }
+            image(line_meta, 270, ylinemeta);
+        }
+
         this.texField();
         this.crash();
+        this.generateCars();
+        this.generateAnimals();
+        image(carplayers[auxGarage], xcarplayer, ycarplayer);
         if (life == 0) {
             if (key3 == true) {
                 if (sound5 == true) {
@@ -580,18 +569,29 @@ public class GameSketch extends PApplet {
                 this.mouseClicked();
             }
         }
-        this.generateAnimals();
-        this.generateCars();
-        image(animals[n], ordenadasanimales[n], abcisa2[n]);
-        image(carplayers[auxGarage], xcarplayer, ycarplayer);
-        if (timer3 > 98) {
-            if (ylinemeta < ycarplayer) {
-                ylinemeta += backvel;
-            } else {
-                backvel = 0;
-                vel = 0;
-            }
-            image(line_meta, 270, ylinemeta);
+
+        if (pause == 0) {
+            velresume = vel;
+            backvelresume = backvel;
+        }
+
+        this.mouseClicked();
+        if (pause == 1) {
+            image(menuPause, 380, 84);
+            mover = false;
+            backvel = 0;
+            vel = 0;
+            velsings = 0;
+            key6 = true;
+            key7 = true;
+
+        }
+        if (pause == 3) {
+            mover = true;
+            vel = velresume;
+            backvel = backvelresume;
+            velsings = 7;
+            pause = 0;
         }
         if (timer3 == 100) {
             mover = false;
@@ -604,6 +604,8 @@ public class GameSketch extends PApplet {
                 SoundYouWin.loop();
                 sound11 = false;
             }
+            key6 = true;
+            key7 = true;
         }
 
     }
@@ -632,16 +634,17 @@ public class GameSketch extends PApplet {
                     vel = vel + 5;
                     backvel = backvel + 5;
                     velocimetro = false;
-                    ;
                 }
             } else {
                 velocimetro = true;
             }
             carplayers[auxGarage].resize(ancho, largo);
-            SoundLobby.stop();
-            if (sound3 == true) {
-                StartRace.play();
-                sound3 = false;
+            lobbyx.SoundLobby.stop();
+            if(SaveSounds){
+                if (sound3 == true) {
+                    StartRace.play();
+                    sound3 = false;
+                }
             }
             if (key4) {
                 aux = timer;
@@ -768,7 +771,26 @@ public class GameSketch extends PApplet {
                 this.mouseClicked();
             }
         }
-
+        if (pause == 0) {
+            velresume = vel;
+            backvelresume = backvel;
+        }
+        if (pause == 1) {
+            image(menuPause, 380, 84);
+            mover = false;
+            backvel = 0;
+            vel = 0;
+            velsings = 0;
+            key6 = true;
+            key7 = true;
+        }
+        if (pause == 3) {
+            mover = true;
+            vel = velresume;
+            backvel = backvelresume;
+            velsings = 7;
+            pause = 0;
+        }
     }
 
     public void generateCars() {
@@ -900,7 +922,7 @@ public class GameSketch extends PApplet {
                 abcisa2[i] = -90;
             }
         }
-
+        image(animals[n], ordenadasanimales[n], abcisa2[n]);
     }
 
     public void crash() {
@@ -951,7 +973,7 @@ public class GameSketch extends PApplet {
     }
 
     public void texField() {
-        Float distancia = (vel * (float) timer3) / 100;
+        Float distancia = (velresume * timer3) / 100;
         Float score = (distancia + timer3) * 2;
         corazon.resize(24, 23);
         check.resize(32, 32);
@@ -971,7 +993,7 @@ public class GameSketch extends PApplet {
         text("Distancia:", 1055, ytext * 4);
         text(distancia + " km", 1055, ytext * 5);
         text("Velocidad:", 1055, ytext * 8);
-        text(vel + " km/h", 1055, ytext * 9);
+        text(velresume + " km/h", 1055, ytext * 9);
         text("Tiempo:", 1055, ytext * 12);
         text(timer3 + " s", 1055, ytext * 13);
         text("Puntaje:", 1055, ytext * 16);
@@ -983,7 +1005,7 @@ public class GameSketch extends PApplet {
     }
 
     public void textFieldFR() {
-        Float distancia = (vel * (float) timer3) / 100;
+        Float distancia = (velresume * timer3) / 100;
         Float score = (distancia + timer3) * 2;
         corazon.resize(24, 23);
         image(corazon, 1092, ytext - 19);
@@ -993,7 +1015,7 @@ public class GameSketch extends PApplet {
         text("Distancia:", 1055, ytext * 5);
         text(distancia + " km", 1055, ytext * 6);
         text("Velocidad:", 1055, ytext * 10);
-        text(vel + " km/h", 1055, ytext * 11);
+        text(velresume + " km/h", 1055, ytext * 11);
         text("Tiempo:", 1055, ytext * 15);
         text(timer3 + " s", 1055, ytext * 16);
         text("Puntaje:", 1055, ytext * 20);
@@ -1043,6 +1065,11 @@ public class GameSketch extends PApplet {
                             abcisa2[h] = 720;
                         }
                     }
+
+                }
+                if (key == pausa) {
+
+                    pause = 1;
                 }
 
             }
@@ -1089,11 +1116,21 @@ public class GameSketch extends PApplet {
                     if (mouseX > 500 && mouseX < 500 + 250) {
                         if (mouseY > 280 && mouseY < 280 + 50) {
                             escena = 2;
+                            vel = newvel;
+                            backvel = newvelback;
+                            pause = 0;
                         }
                     }
                     if (mouseX > 500 && mouseX < 500 + 250) {
                         if (mouseY > 380 && mouseY < 380 + 50) {
                             escena = 3;
+                            if (key12) {
+                                vel = newvel;
+                                backvel = newvelback;
+                                key12 = false;
+                                pause = 0;
+                            }
+
                         }
                     }
                     if (mouseX > 500 && mouseX < 500 + 250) {
@@ -1120,42 +1157,60 @@ public class GameSketch extends PApplet {
                             jugar = true;
                         }
                     }
-                    if (mover == false) {
-                        if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-                            if (key6 == true) {
-                                this.exiting();
-                                key6 = false;
+                    if (life == 0 || timer3 == 100) {
+                        if (mover == false) {
+                            if (mouseX > 540 && mouseX < 620) {
+                                if (mouseY > 330 && mouseY < 420) {
+                                    if (key6) {
+                                        this.exiting();
+                                        key6 = false;
+                                    }
+                                }
                             }
-
                         }
-                        if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-                            this.retrying();
-                        }
-                    }
-                    if (timer3 == 100) {
                         if (mouseX > 660 && mouseX < 740) {
-                            if (mouseY > 300 && mouseY < 390) {
-                                this.retrying();
-
-                            }
-                        }
-                        if (mouseX > 540 && mouseX < 620) {
-                            if (mouseY > 300 && mouseY < 390) {
-                                this.exiting();
-
+                            if (mouseY > 330 && mouseY < 420) {
+                                if (key7) {
+                                    this.retrying();
+                                    key7 = false;
+                                }
                             }
                         }
                     }
+                    if (pause == 1) {
+                        if (mouseX > 481 && mouseX < 572) {
+                            if (mouseY > 214 && mouseY < 306) {
+                                if (key7) {
+                                    this.retrying();
+                                    pause = 0;
+                                    key7 = false;
+                                }
 
+                            }
+                        }
+                        if (mouseX > 708 && mouseX < 799) {
+                            if (mouseY > 214 && mouseY < 306) {
+                                this.exiting();
+                                pause = 0;
+                            }
+                        }
+                        if (mouseX > 491 && mouseX < 789) {
+                            if (mouseY > 323 && mouseY < 384) {
+                                pause = 3;
+                            }
+                        }
+                    }
                 }
-                if (escena == 3) {
+            }
+            if (escena == 3) {
+                if (!launchFR) {
                     if (mouseX > 51 && mouseX < 403) {
                         if (mouseY > 233 && mouseY < 491) {
                             xmarco4 = 41;
                             ymarco4 = 223;
                             Maps = true;
-                            swFR = 1;
                             escenarioFR1 = Background;
+                            swFR = 1;
                         }
                     }
                     if (mouseX > 464 && mouseX < 816) {
@@ -1163,8 +1218,8 @@ public class GameSketch extends PApplet {
                             xmarco4 = 454;
                             ymarco4 = 223;
                             escenarioFR1 = Background2;
-                            swFR = 2;
                             Maps = true;
+                            swFR = 2;
                         }
                     }
                     if (mouseX > 877 && mouseX < 1229) {
@@ -1176,230 +1231,263 @@ public class GameSketch extends PApplet {
                             swFR = 3;
                         }
                     }
-                    if (Maps) {
-                        if (mouseX > 527 && mouseX < 752) {
-                            if (mouseY > 634 && mouseY < 693) {
-                                launchIns = true;
-                            }
+
+                }
+                if (Maps) {
+                    if (mouseX > 527 && mouseX < 752) {
+                        if (mouseY > 634 && mouseY < 693) {
+                            launchIns = true;
                         }
                     }
-                    if (launchIns) {
-                        if (mouseX > 1098 && mouseX < 1223) {
-                            if (mouseY > 639 && mouseY < 690) {
-                                launchFR = true;
-                            }
+                }
+                if (launchIns) {
+                    if (mouseX > 1098 && mouseX < 1223) {
+                        if (mouseY > 639 && mouseY < 690) {
+                            launchFR = true;
                         }
                     }
-                    if (mouseX > 26 && mouseX < 91) {
-                        if (mouseY > 35 && mouseY < 69) {
-                            escena = 1;
-                        }
+                }
+                if (mouseX > 26 && mouseX < 91) {
+                    if (mouseY > 35 && mouseY < 69) {
+                        escena = 1;
                     }
+                }
+                if (life == 0) {
                     if (mover == false) {
-                        if ((mouseX > 540 && mouseX < 540 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-                            if (key6 == true) {
+                        if (mouseX > 540 && mouseX < 620) {
+                            if (mouseY > 330 && mouseY < 420) {
+                                if (key6) {
+                                    this.exitingFR();
+                                    key6 = false;
+                                }
+                            }
+                        }
+                    }
+                    if (mouseX > 660 && mouseX < 740) {
+                        if (mouseY > 330 && mouseY < 420) {
+                            if (key7) {
+                                this.retryingFR();
+                                key7 = false;
+                            }
+                        }
+                    }
+                }
+                if (pause == 1) {
+                    if (mouseX > 481 && mouseX < 572) {
+                        if (mouseY > 214 && mouseY < 306) {
+                            if (key7) {
+                                this.retryingFR();
+                                pause = 0;
+                                key7 = false;
+                            }
+                        }
+                    }
+                    if (mouseX > 708 && mouseX < 799) {
+                        if (mouseY > 214 && mouseY < 306) {
+                            if (key6) {
                                 this.exitingFR();
+                                pause = 0;
                                 key6 = false;
                             }
 
                         }
-                        if ((mouseX > 660 && mouseX < 660 + 80) && (mouseY > 330 && mouseY < 330 + 90)) {
-                            this.retryingFR();
+                    }
+                    if (mouseX > 491 && mouseX < 789) {
+                        if (mouseY > 323 && mouseY < 384) {
+                            pause = 3;
                         }
                     }
                 }
-                if (escena == 4) {
-                    if (mouseX > 800 && mouseX < 860) {
-                        if (mouseY > 250 && mouseY < 310) {
-                            m = 0;
-                            xmarco = 793;
-                            ymarco = 243;
-                            sound9 = true;
-
-                        }
-                    }
-                    if (mouseX > 900 && mouseX < 960) {
-                        if (mouseY > 250 && mouseY < 310) {
-                            m = 1;
-                            xmarco = 893;
-                            ymarco = 243;
-                            sound9 = true;
-
-                        }
+            }
+            if (escena == 4) {
+                if (mouseX > 800 && mouseX < 860) {
+                    if (mouseY > 250 && mouseY < 310) {
+                        m = 0;
+                        xmarco = 793;
+                        ymarco = 243;
+                        sound9 = true;
 
                     }
-                    if (mouseX > 1000 && mouseX < 1060) {
-                        if (mouseY > 250 && mouseY < 310) {
-                            m = 2;
-                            xmarco = 993;
-                            ymarco = 243;
-                            sound9 = true;
+                }
+                if (mouseX > 900 && mouseX < 960) {
+                    if (mouseY > 250 && mouseY < 310) {
+                        m = 1;
+                        xmarco = 893;
+                        ymarco = 243;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 800 && mouseX < 860) {
-                        if (mouseY > 350 && mouseY < 410) {
-                            m = 3;
-                            xmarco = 793;
-                            ymarco = 343;
-                            sound9 = true;
+                }
+                if (mouseX > 1000 && mouseX < 1060) {
+                    if (mouseY > 250 && mouseY < 310) {
+                        m = 2;
+                        xmarco = 993;
+                        ymarco = 243;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 900 && mouseX < 960) {
-                        if (mouseY > 350 && mouseY < 410) {
-                            m = 4;
-                            xmarco = 893;
-                            ymarco = 343;
-                            sound9 = true;
+                }
+                if (mouseX > 800 && mouseX < 860) {
+                    if (mouseY > 350 && mouseY < 410) {
+                        m = 3;
+                        xmarco = 793;
+                        ymarco = 343;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 1000 && mouseX < 1060) {
-                        if (mouseY > 350 && mouseY < 410) {
-                            m = 5;
-                            xmarco = 993;
-                            ymarco = 343;
-                            sound9 = true;
+                }
+                if (mouseX > 900 && mouseX < 960) {
+                    if (mouseY > 350 && mouseY < 410) {
+                        m = 4;
+                        xmarco = 893;
+                        ymarco = 343;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 800 && mouseX < 860) {
-                        if (mouseY > 450 && mouseY < 510) {
-                            m = 6;
-                            xmarco = 793;
-                            ymarco = 443;
-                            sound9 = true;
+                }
+                if (mouseX > 1000 && mouseX < 1060) {
+                    if (mouseY > 350 && mouseY < 410) {
+                        m = 5;
+                        xmarco = 993;
+                        ymarco = 343;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 900 && mouseX < 960) {
-                        if (mouseY > 450 && mouseY < 510) {
-                            m = 7;
-                            xmarco = 893;
-                            ymarco = 443;
-                            sound9 = true;
+                }
+                if (mouseX > 800 && mouseX < 860) {
+                    if (mouseY > 450 && mouseY < 510) {
+                        m = 6;
+                        xmarco = 793;
+                        ymarco = 443;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 1000 && mouseX < 1060) {
-                        if (mouseY > 450 && mouseY < 510) {
-                            m = 8;
-                            xmarco = 993;
-                            ymarco = 443;
-                            sound9 = true;
+                }
+                if (mouseX > 900 && mouseX < 960) {
+                    if (mouseY > 450 && mouseY < 510) {
+                        m = 7;
+                        xmarco = 893;
+                        ymarco = 443;
+                        sound9 = true;
 
-                        }
                     }
-                    if (mouseX > 57 && mouseX < 186) {
-                        if (mouseY > 73 && mouseY < 102) {
-                            escena = 1;
-                        }
-                    }
-                    if (mouseX > 800 && mouseX < 1060) {
-                        if (mouseY > 550 && mouseY < 610) {
-                            auxGarage = m;
-                            escena = 1;
-                            spray.stop();
+                }
+                if (mouseX > 1000 && mouseX < 1060) {
+                    if (mouseY > 450 && mouseY < 510) {
+                        m = 8;
+                        xmarco = 993;
+                        ymarco = 443;
+                        sound9 = true;
 
+                    }
+                }
+                if (mouseX > 57 && mouseX < 186) {
+                    if (mouseY > 73 && mouseY < 102) {
+                        escena = 1;
+                    }
+                }
+                if (mouseX > 800 && mouseX < 1060) {
+                    if (mouseY > 550 && mouseY < 610) {
+                        auxGarage = m;
+                        escena = 1;
+                        spray.stop();
+
+                    }
+                }
+            }
+            if (escena == 5) {
+                if (mouseX > 57 && mouseX < 186) {
+                    if (mouseY > 73 && mouseY < 102) {
+                        escena = 1;
+                    }
+                }
+                if (mouseX > 467 && mouseX < 612) {
+                    if (mouseY > 286 && mouseY < 341) {
+                        xmarco2 = 465;
+                        ymarco2 = 281;
+                        playSounds = true;
+
+                    }
+                }
+                if (mouseX > 657 && mouseX < 802) {
+                    if (mouseY > 286 && mouseY < 341) {
+                        xmarco2 = 655;
+                        ymarco2 = 281;
+                        playSounds = false;
+                    }
+                }
+                if (mouseX > 360 && mouseX < 505) {
+                    if (mouseY > 508 && mouseY < 563) {
+                        xmarco3 = 357;
+                        ymarco3 = 503;
+                        dificultad = 2;
+                        vel = 5;
+                        backvel = 10;
+                        newvel = 5;
+                        newvelback = 10;
+                    }
+                }
+                if (mouseX > 568 && mouseX < 713) {
+                    if (mouseY > 508 && mouseY < 563) {
+                        xmarco3 = 565;
+                        ymarco3 = 503;
+                        dificultad = 5;
+                        newvel = 10;
+                        vel = 10;
+                        backvel = 20;
+                        newvel = 10;
+                        newvelback = 20;
+                    }
+                }
+                if (mouseX > 776 && mouseX < 921) {
+                    if (mouseY > 508 && mouseY < 563) {
+                        xmarco3 = 773;
+                        ymarco3 = 503;
+                        dificultad = 8;
+                        vel = 15;
+                        backvel = 25;
+                        newvel = 15;
+                        newvelback = 25;
+                    }
+                }
+                if (mouseX > 1107 && mouseX < 1252) {
+                    if (mouseY > 639 && mouseY < 694) {
+                        escena = 1;
+                        saveDificultad = dificultad;
+                        SaveSounds = playSounds;
+                        delay(300);
+                    }
+                }
+            }
+            if (escena == 6) {
+                if (subescena == 1) {
+                    if (mouseX > 1136 && mouseX < 1189) {
+                        if (mouseY > 600 && mouseY < 663) {
+                            subescena = 2;
+                            changeSubescena = false;
                         }
                     }
                 }
-                if (escena == 5) {
-                    if (mouseX > 57 && mouseX < 186) {
-                        if (mouseY > 73 && mouseY < 102) {
+                if (subescena == 2) {
+                    if (mouseX > 91 && mouseX < 144) {
+                        if (mouseY > 602 && mouseY < 666) {
+                            subescena = 1;
+                        }
+                    }
+                    if (mouseX > 1092 && mouseX < 1237) {
+                        if (mouseY > 34 && mouseY < 89) {
                             escena = 1;
-                        }
-                    }
-                    if (mouseX > 467 && mouseX < 612) {
-                        if (mouseY > 286 && mouseY < 341) {
-                            xmarco2 = 465;
-                            ymarco2 = 281;
-                            playSounds = true;
-
-                        }
-                    }
-                    if (mouseX > 657 && mouseX < 802) {
-                        if (mouseY > 286 && mouseY < 341) {
-                            xmarco2 = 655;
-                            ymarco2 = 281;
-                            playSounds = false;
-                        }
-                    }
-                    if (mouseX > 360 && mouseX < 505) {
-                        if (mouseY > 508 && mouseY < 563) {
-                            xmarco3 = 357;
-                            ymarco3 = 503;
-                            dificultad = 2;
-                            vel = 5;
-                            backvel = 10;
-                            newvel=5;
-                            newvelback=10;  
-                        }
-                    }
-                    if (mouseX > 568 && mouseX < 713) {
-                        if (mouseY > 508 && mouseY < 563) {
-                            xmarco3 = 565;
-                            ymarco3 = 503;
-                            dificultad = 5;
-                            newvel=10;
-                            vel = 10;
-                            backvel = 20;
-                            newvel=10;
-                            newvelback=20; 
-                        }
-                    }
-                    if (mouseX > 776 && mouseX < 921) {
-                        if (mouseY > 508 && mouseY < 563) {
-                            xmarco3 = 773;
-                            ymarco3 = 503;
-                            dificultad = 8;
-                            vel = 15;
-                            backvel = 25;
-                            newvel=15;
-                            newvelback=25; 
-                        }
-                    }
-                    if (mouseX > 1107 && mouseX < 1252) {
-                        if (mouseY > 639 && mouseY < 694) {
-                            escena = 1;
-                            saveDificultad = dificultad;
-                            SaveSounds = playSounds;
-                            delay(300);
-                        }
-                    }
-                }
-                if (escena == 6) {
-                    if (subescena == 1) {
-                        if (mouseX > 1136 && mouseX < 1189) {
-                            if (mouseY > 600 && mouseY < 663) {
-                                subescena = 2;
-                                changeSubescena = false;
-                            }
-                        }
-                    }
-                    if (subescena == 2) {
-                        if (mouseX > 91 && mouseX < 144) {
-                            if (mouseY > 602 && mouseY < 666) {
-                                subescena = 1;
-                            }
-                        }
-                        if (mouseX > 1092 && mouseX < 1237) {
-                            if (mouseY > 34 && mouseY < 89) {
-                                escena = 1;
-                                soundCredits.stop();
-                                sound4 = true;
-                            }
+                            soundCredits.stop();
+                            sound4 = true;
                         }
                     }
                 }
             }
         }
-
     }
 
     public void credits() {
-        SoundLobby.stop();
+        lobbyx.SoundLobby.stop();
         if (sound10) {
             soundCredits.loop();
             sound10 = false;
@@ -1427,16 +1515,24 @@ public class GameSketch extends PApplet {
     public void exiting() {
         escena = 1;
         this.retrying();
+        jugar = false;
     }
 
     public void exitingFR() {
         escena = 1;
         this.retryingFR();
+        launchIns = false;
+        key12 = true;
+        launchFR = false;
     }
 
     public void retrying() {
         backvel = newvelback;
         vel = newvel;
+        yletter = -200;
+        yletter2 = -200;
+        yletter3 = -200;
+        velsings = 7;
         y = 0;
         y1 = -720;
         y3 = -1440;
@@ -1463,8 +1559,7 @@ public class GameSketch extends PApplet {
         contador = true;
         key4 = true;
         key1 = true;
-        key2 = true;
-        jugar = false;
+        jugar = true;
         SoundYouWin.stop();
         sw = 1;
         for (int i = 0; i < ordenadasderecha.length; i++) {
@@ -1484,6 +1579,10 @@ public class GameSketch extends PApplet {
     public void retryingFR() {
         backvel = 20;
         vel = 10;
+        yletter = -200;
+        yletter2 = -200;
+        yletter3 = -200;
+        velsings = 7;
         ysw = 0;
         y1sw = -720;
         y2 = 0;
@@ -1508,9 +1607,7 @@ public class GameSketch extends PApplet {
         contador = true;
         key4 = true;
         key1 = true;
-        key2 = true;
-        launchFR = false;
-        launchIns = false;
+        launchFR = true;
         for (int i = 0; i < ordenadasderecha.length; i++) {
             ordenadasderecha[i] = random(600, 920);
             ordenadasizquierda[i] = random(275, 520);

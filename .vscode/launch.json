@@ -9,6 +9,13 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "game.App",
+            "projectName": "Lab01ElkinSantis_8720ad96"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "game.App",
             "projectName": "Lab01ElkinSantis_9a839ac3"
         },
         {
