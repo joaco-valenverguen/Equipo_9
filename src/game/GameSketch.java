@@ -458,8 +458,8 @@ public class GameSketch extends PApplet {
         key3 = true;
         if (timer3 % 20 == 0) {
             if (velocimetro == true) {
-                vel = vel + 5;
-                backvel = backvel + 5;
+                vel = vel + saveDificultad;
+                backvel = backvel + saveDificultad;
                 velocimetro = false;
                 ;
             }
@@ -510,10 +510,10 @@ public class GameSketch extends PApplet {
             y3 = y3 + backvel;
             y4 = y4 + backvel;
             if (y3 > 720) {
-                y3 = y4-720;
+                y3 = y4 - 720;
             }
             if (y4 > 720) {
-                y4 = y3-720;
+                y4 = y3 - 720;
             }
             image(letrero2, 150, yletter2);
             yletter2 += velsings;
@@ -544,48 +544,48 @@ public class GameSketch extends PApplet {
             y7 += backvel;
             y8 += backvel;
             if (y8 >= 0) {
-                y5 = y8-720;
-                y6 = y5-720;
-                y7 = y6-720;
+                y5 = y8 - 720;
+                y6 = y5 - 720;
+                y7 = y6 - 720;
             }
             if (y8 > 720) {
-                y8 = y7-720;
+                y8 = y7 - 720;
             }
             image(letrero3, 150, yletter3);
             yletter3 += velsings;
         }
-       
+
         this.texField();
         this.crash();
-        // if (life == 0) {
-        // if (key3 == true) {
-        // if (sound5 == true) {
-        // GameOver.play();
-        // sound5 = false;
-        // }
-        // backvel = 0;
-        // vel = 0;
-        // mover = false;
-        // exit.resize(80, 90);
-        // retry.resize(80, 90);
-        // image(gameOver, 350, 0);
-        // image(exit, 540, 330);
-        // image(retry, 660, 330);
-        // level1.stop();
-        // Level2.stop();
-        // Level3.stop();
-        // key7 = true;
-        // key6 = true;
-        // this.mouseClicked();
-        // }
-        // }
+        if (life == 0) {
+            if (key3 == true) {
+                if (sound5 == true) {
+                    GameOver.play();
+                    sound5 = false;
+                }
+                backvel = 0;
+                vel = 0;
+                mover = false;
+                exit.resize(80, 90);
+                retry.resize(80, 90);
+                image(gameOver, 350, 0);
+                image(exit, 540, 330);
+                image(retry, 660, 330);
+                level1.stop();
+                Level2.stop();
+                Level3.stop();
+                key7 = true;
+                key6 = true;
+                this.mouseClicked();
+            }
+        }
 
         if (timer3 > 98) {
-            if(ylinemeta < ycarplayer){
-            ylinemeta += backvel;
-            }else{
-            backvel = 0;
-            vel = 0;
+            if (ylinemeta < ycarplayer) {
+                ylinemeta += backvel;
+            } else {
+                backvel = 0;
+                vel = 0;
             }
             image(line_meta, 270, ylinemeta);
         }
@@ -1135,13 +1135,13 @@ public class GameSketch extends PApplet {
                         if (mouseX > 660 && mouseX < 740) {
                             if (mouseY > 300 && mouseY < 390) {
                                 this.retrying();
-                               
+
                             }
                         }
                         if (mouseX > 540 && mouseX < 620) {
                             if (mouseY > 300 && mouseY < 390) {
                                 this.exiting();
-                                
+
                             }
                         }
                     }
@@ -1330,6 +1330,8 @@ public class GameSketch extends PApplet {
                             xmarco3 = 357;
                             ymarco3 = 503;
                             dificultad = 2;
+                            vel = 5;
+                            backvel = 10;
                         }
                     }
                     if (mouseX > 568 && mouseX < 713) {
@@ -1337,6 +1339,8 @@ public class GameSketch extends PApplet {
                             xmarco3 = 565;
                             ymarco3 = 503;
                             dificultad = 5;
+                            vel = 10;
+                            backvel = 20;
                         }
                     }
                     if (mouseX > 776 && mouseX < 921) {
