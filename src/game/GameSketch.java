@@ -510,10 +510,10 @@ public class GameSketch extends PApplet {
             y3 = y3 + backvel;
             y4 = y4 + backvel;
             if (y3 > 720) {
-                y3 = -720;
+                y3 = y4-720;
             }
             if (y4 > 720) {
-                y4 = -720;
+                y4 = y3-720;
             }
             image(letrero2, 150, yletter2);
             yletter2 += velsings;
@@ -543,13 +543,13 @@ public class GameSketch extends PApplet {
             y6 += backvel;
             y7 += backvel;
             y8 += backvel;
-            if (y7 > 720) {
-                y5 = -720;
-                y6 = -1440;
-                y7 = -2160;
+            if (y8 >= 0) {
+                y5 = y8-720;
+                y6 = y5-720;
+                y7 = y6-720;
             }
             if (y8 > 720) {
-                y8 = -2160;
+                y8 = y7-720;
             }
             image(letrero3, 150, yletter3);
             yletter3 += velsings;
