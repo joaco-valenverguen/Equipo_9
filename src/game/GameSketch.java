@@ -58,7 +58,15 @@ public class GameSketch extends PApplet {
             imageNoLife = false, keyTime = true, keyRenaudar = true;
 
     String p = "p";
+    String w = "w";
+    String a = "a";
+    String s = "s";
+    String d = "d";
+
     char pausa = p.charAt(0);
+    char Wasd = w.charAt(0);
+    char wAsd = a.charAt(0);
+    char wasD = d.charAt(0);
 
     String SoundLobby = "/sounds/SoundLobby.wav", level2 = "/sounds/ulala.wav", level3 = "/sounds/songquilla.wav",
             level1 = "/sounds/soundlevel1.wav", soundCredits = "/sounds/oninonino.wav",
@@ -1041,7 +1049,9 @@ public class GameSketch extends PApplet {
 
             } else {
                 soundBomm.play();
-                life = life - 1;
+                if(life>0){
+                    life = life - 1;
+                }
                 image(less, 1123, 14);
                 xPositionColision = ordenadasizquierda[h];
                 yPositionColision = abcisa[h];
@@ -1137,17 +1147,17 @@ public class GameSketch extends PApplet {
     public void keyPressed() {
         if (move == true) {
             if (keyPressed == true) {
-                if (keyCode == RIGHT) {
+                if (keyCode == RIGHT||key == wasD) {
                     if (xPostionCarplayer < 920) {
                         xPostionCarplayer = xPostionCarplayer + 50;
                     }
                 }
-                if (keyCode == LEFT) {
+                if (keyCode == LEFT||key == wAsd) {
                     if (xPostionCarplayer > 275) {
                         xPostionCarplayer = xPostionCarplayer - 50;
                     }
                 }
-                if (keyCode == UP) {
+                if (keyCode == UP||key == Wasd) {
 
                     for (int h = 0; h <= 14; h++) {
 
@@ -1680,6 +1690,7 @@ public class GameSketch extends PApplet {
         yPositionCarplayer = 520;
         yPositionSincelejoKid = -246;
         yCartagenaKids = -250;
+        yPositionLineMeta = -83;
         life = 3;
         posx_i = -150;
         posx_f = 1430;
