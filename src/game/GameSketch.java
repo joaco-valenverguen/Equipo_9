@@ -28,13 +28,14 @@ public class GameSketch extends PApplet {
             sizeLetras = 13, life = 3, timer, width = 70, height = 150, widthAnimals = 60, heightAnimals = 87, i, n = 0,
             h, cont1 = 0, YpositionSing = -200, timer2, timer3 = 1, scene = 1, yPositionSing2 = -200, aux, cont, m,
             velSings = 7, yPositionSing3 = -200, yPositionLineMeta = -83, xPositionmarco = -400, yPositionmarco = -400,
-            auxGarage = 0, subscene = 1, pause = 0, timer4, posx_i = -150, posx_f = 1430, posy_i = -150, posy_f = 870;
+            auxGarage = 0, subscene = 1, pause = 0, timer4, posx_i = -150, posx_f = 1430, posy_i = -150, posy_f = 870,
+            aux_time = 0;
 
     float velResume, backVelResume, yBackground2FR = 0, y = 0, backvel = 20, vel = 10, difficulty = 5,
             savedifficulty = 5, yBackground = -720, yPositionBackground2 = -1440, yPositionBackground2b = -720,
             yPositionBackground2bFR = -720, yFR = 0, yBackgroundFR = -720, yPositionBackground3aFR = 0,
             yPositionBackground3bFR = -720, yPositionBackground3cFR = -1440, yPositionBackground3dFR = -2160,
-            yPositionBackground3a = -720, yPositionBackground3b = -1440, yPositionBackground3c = -2160, 
+            yPositionBackground3a = -720, yPositionBackground3b = -1440, yPositionBackground3c = -2160,
             yPositionBackground3d = -2880, xPostionCarplayer = 600, yPositionCarplayer = 520, xPositionColision,
             yPositionColision, yPositionSincelejoKid = -246, yCartagenaKids = -250, time3Captured, time4Captured,
             pos_act_x = posx_f, pos_act_y = posy_i, paso = (float) 0.01, pct = (float) 0.0;
@@ -54,7 +55,7 @@ public class GameSketch extends PApplet {
             swSoundCredits = true, swSoundYouWin = true, contador = true, velocimetro = true, confirmar = false,
             jugar = false, changeSubscene, swOptions = false, playSounds = true, SaveSounds = true, Maps = false,
             launchFR = false, launchIns = false, capturedTime3 = false, imageLife = false, capturedTime4 = false,
-            imageNoLife = false;
+            imageNoLife = false, keyTime = true, keyRenaudar = true;
 
     String p = "p";
     char pausa = p.charAt(0);
@@ -147,7 +148,7 @@ public class GameSketch extends PApplet {
                 }
                 if (timer2 > 3) {
                     if (move == true) {
-                        timer3 = timer2 - 3;
+                        timer3 = timer2 - 3 - aux_time;
                     }
                     contador = false;
                     this.game();
@@ -623,6 +624,8 @@ public class GameSketch extends PApplet {
             velSings = 0;
             swButtonExiting = true;
             swButtonRetrying = true;
+            keyTime = true;
+
         }
         // Se reanuda el juego despues de una pausa
         if (pause == 3) {
@@ -637,11 +640,16 @@ public class GameSketch extends PApplet {
                 Level3.loop(100);
                 break;
             }
+            if (keyTime) {
+                aux_time = timer2 - timer3 - 3;
+                keyTime = false;
+            }
             move = true;
             vel = velResume;
             backvel = backVelResume;
             velSings = 7;
             pause = 0;
+
         }
         // Evento de haber ganado el juego
         if (timer3 == 100) {
@@ -719,7 +727,7 @@ public class GameSketch extends PApplet {
             }
             if (timer2 > 3) {
                 if (move == true) {
-                    timer3 = timer2 - 3;
+                    timer3 = timer2 - 3 - aux_time;
                 }
                 contador = false;
                 switch (swFR) {
@@ -840,6 +848,8 @@ public class GameSketch extends PApplet {
             velSings = 0;
             swButtonExiting = true;
             swButtonRetrying = true;
+            keyTime = true;
+            keyRenaudar = true;
             switch (swFR) {
             case 1:
                 Level1.stop();
@@ -854,11 +864,6 @@ public class GameSketch extends PApplet {
 
         }
         if (pause == 3) {
-            move = true;
-            vel = velResume;
-            backvel = backVelResume;
-            velSings = 7;
-            pause = 0;
             switch (swFR) {
             case 1:
                 Level1.loop(100);
@@ -870,6 +875,16 @@ public class GameSketch extends PApplet {
                 Level3.loop(100);
                 break;
             }
+            if (keyTime) {
+                aux_time = timer2 - timer3 - 3;
+                keyTime = false;
+            }
+            move = true;
+            vel = velResume;
+            backvel = backVelResume;
+            velSings = 7;
+            pause = 0;
+
         }
     }
 
@@ -1391,12 +1406,14 @@ public class GameSketch extends PApplet {
                                     pause = 0;
                                     swButtonExiting = false;
                                 }
-
                             }
                         }
                         if (mouseX > 491 && mouseX < 789) {
                             if (mouseY > 323 && mouseY < 384) {
-                                pause = 3;
+                                if (keyRenaudar) {
+                                    pause = 3;
+                                    keyRenaudar = false;
+                                }
                             }
                         }
                     }
@@ -1661,7 +1678,8 @@ public class GameSketch extends PApplet {
         yPositionBackground3d = -2880;
         xPostionCarplayer = 600;
         yPositionCarplayer = 520;
-
+        yPositionSincelejoKid = -246;
+        yCartagenaKids = -250;
         life = 3;
         posx_i = -150;
         posx_f = 1430;
@@ -1682,7 +1700,9 @@ public class GameSketch extends PApplet {
         swSoundYouWin = true;
         captureTime = true;
         key1 = true;
-
+        aux_time = 0;
+        yPositionSincelejoKid = -246;
+        yCartagenaKids = -250;
         Level1.stop();
         Level2.stop();
         Level3.stop();
@@ -1717,6 +1737,7 @@ public class GameSketch extends PApplet {
         yPositionSing3 = -200;
         velSings = 7;
         yFR = 0;
+        aux_time = 0;
 
         yBackgroundFR = -720;
         yBackground2FR = 0;
@@ -1739,6 +1760,7 @@ public class GameSketch extends PApplet {
         contador = true;
         captureTime = true;
         key1 = true;
+        keyTime = true;
         launchFR = true;
         Level1.stop();
         Level2.stop();
