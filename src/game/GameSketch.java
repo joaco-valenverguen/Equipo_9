@@ -32,9 +32,9 @@ public class GameSketch extends PApplet {
 
     float velResume, backVelResume, yBackground2FR = 0, y = 0, backvel = 20, vel = 10, difficulty = 5,
             savedifficulty = 5, yBackground = -720, yPositionBackground2 = -1440, yPositionBackground2b = -720,
-            yPositionBackground2bFR = -720, yFR = 0, yBackgroundFR = -720, yPositionBackground3a = 0,
+            yPositionBackground2bFR = -720, yFR = 0, yBackgroundFR = -720, yPositionBackground3aFR = 0,
             yPositionBackground3bFR = -720, yPositionBackground3cFR = -1440, yPositionBackground3dFR = -2160,
-            yPositionBackground3aFR = -720, yPositionBackground3b = -1440, yPositionBackground3c = -2160,
+            yPositionBackground3a = -720, yPositionBackground3b = -1440, yPositionBackground3c = -2160, 
             yPositionBackground3d = -2880, xPostionCarplayer = 600, yPositionCarplayer = 520, xPositionColision,
             yPositionColision, yPositionSincelejoKid = -246, yCartagenaKids = -250, time3Captured, time4Captured,
             pos_act_x = posx_f, pos_act_y = posy_i, paso = (float) 0.01, pct = (float) 0.0;
@@ -606,7 +606,7 @@ public class GameSketch extends PApplet {
 
         if (pause == 1) {
             image(menuPause, 380, 84);
-            switch (swFR) {
+            switch (sw) {
             case 1:
                 Level1.stop();
                 break;
@@ -626,7 +626,7 @@ public class GameSketch extends PApplet {
         }
         // Se reanuda el juego despues de una pausa
         if (pause == 3) {
-            switch (swFR) {
+            switch (sw) {
             case 1:
                 Level1.loop(100);
                 break;
@@ -774,7 +774,6 @@ public class GameSketch extends PApplet {
                             swSoundLevel3 = false;
                         }
                     }
-                    image(Background2b, x, yPositionBackground2bFR);
                     image(Background3a, x, yPositionBackground3aFR);
                     image(Background3b, x, yPositionBackground3bFR);
                     image(Background3c, x, yPositionBackground3cFR);
@@ -841,9 +840,18 @@ public class GameSketch extends PApplet {
             velSings = 0;
             swButtonExiting = true;
             swButtonRetrying = true;
-            Level1.stop();
-            Level2.stop();
-            Level3.stop();
+            switch (swFR) {
+            case 1:
+                Level1.stop();
+                break;
+            case 2:
+                Level2.stop();
+                break;
+            case 3:
+                Level3.stop();
+                break;
+            }
+
         }
         if (pause == 3) {
             move = true;
@@ -851,9 +859,17 @@ public class GameSketch extends PApplet {
             backvel = backVelResume;
             velSings = 7;
             pause = 0;
-            Level1.start();
-            Level2.start();
-            Level3.start();
+            switch (swFR) {
+            case 1:
+                Level1.loop(100);
+                break;
+            case 2:
+                Level2.loop(100);
+                break;
+            case 3:
+                Level3.loop(100);
+                break;
+            }
         }
     }
 
