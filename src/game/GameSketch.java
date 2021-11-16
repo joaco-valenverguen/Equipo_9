@@ -70,7 +70,7 @@ public class GameSketch extends PApplet {
 
     String SoundLobby = "/sounds/SoundLobby.wav", level2 = "/sounds/ulala.wav", level3 = "/sounds/songquilla.wav",
             level1 = "/sounds/soundlevel1.wav", soundCredits = "/sounds/oninonino.wav",
-            soundYouWin = "/sounds/SongYouWin.wav";
+            soundYouWin = "/sounds/songYouWin.wav";
 
     String[] rutas_carplayers = { "Images/carplayer_orange.png", "Images/carplayer_blue.png",
             "Images/carplayer_yellow.png", "Images/carplayer_red.png", "Images/carplayer_purple.png",
